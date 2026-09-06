@@ -1,0 +1,3 @@
+@echo off
+echo Opening Standalone AXIOMSEC Landing Page...
+start "" "%~dp0standalone.html"

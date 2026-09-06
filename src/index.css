@@ -1,0 +1,198 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg: #03080f;
+  --bg2: #060f1c;
+  --bg3: #091522;
+  --cyan: #00c8ff;
+  --cyan-dim: #0090bb;
+  --cyan-glow: rgba(0, 200, 255, 0.12);
+  --red: #ff3b5c;
+  --text: #d8eaf8;
+  --muted: #4a6580;
+  --border: rgba(0, 200, 255, 0.12);
+  --font-mono: 'JetBrains Mono', monospace;
+  --font-body: 'Inter', sans-serif;
+}
+
+html, body, #root {
+  background: var(--bg);
+  min-height: 100%;
+  color: var(--text);
+  font-family: var(--font-body);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  background-color: var(--bg);
+}
+
+/* Custom Tactical Background Grid */
+.tactical-grid {
+  background-image: 
+    linear-gradient(rgba(0, 200, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 200, 255, 0.03) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+
+/* Cyber Softened Buttons */
+.cyber-btn-primary {
+  background: var(--cyan);
+  color: #03080f;
+  font-family: var(--font-mono);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  border-radius: 8px;
+  border: none;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 28px;
+  font-size: 12px;
+  font-weight: 700;
+  transition: all 0.2s ease-out;
+  display: inline-flex;
+}
+
+.cyber-btn-primary:hover {
+  background: #33d4ff;
+  box-shadow: 0 0 30px rgba(0, 200, 255, 0.4);
+  transform: translateY(-1px);
+}
+
+.cyber-btn-ghost {
+  color: var(--cyan);
+  font-family: var(--font-mono);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  background: transparent;
+  border-radius: 8px;
+  border: 1px solid rgba(0, 200, 255, 0.4);
+  align-items: center;
+  gap: 8px;
+  padding: 11px 28px;
+  font-size: 12px;
+  font-weight: 600;
+  transition: all 0.2s ease-out;
+  display: inline-flex;
+}
+
+.cyber-btn-ghost:hover {
+  border-color: var(--cyan);
+  background: rgba(0, 200, 255, 0.06);
+  box-shadow: 0 0 20px rgba(0, 200, 255, 0.15);
+  transform: translateY(-1px);
+}
+
+.eyebrow {
+  font-family: var(--font-mono);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--cyan);
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.section-label {
+  font-family: var(--font-mono);
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--muted);
+  font-size: 10px;
+  font-weight: 500;
+}
+
+/* Animations */
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-marquee {
+  display: flex;
+  width: max-content;
+  animation: marquee 28s linear infinite;
+}
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.7); }
+}
+
+.animate-pulse-dot {
+  animation: pulse-dot 1.8s ease-in-out infinite;
+}
+
+@keyframes scan-line {
+  0% { opacity: 0; transform: translateY(-100%); }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { opacity: 0; transform: translateY(520px); }
+}
+
+.scan-line {
+  animation: scan-line 4s linear infinite;
+}
+
+@keyframes float-node {
+  0%, 100% { transform: translate(0, 0); }
+  33% { transform: translate(4px, -8px); }
+  66% { transform: translate(-6px, 4px); }
+}
+
+.node-dot {
+  animation: float-node 4s ease-in-out infinite;
+}
+
+@keyframes ring-expand {
+  0% { opacity: 0.6; transform: scale(0.8); }
+  100% { opacity: 0; transform: scale(1.8); }
+}
+
+.ring-anim {
+  animation: ring-expand 2.5s ease-out infinite;
+  transform-origin: 280px 260px;
+}
+
+@keyframes data-flow {
+  0% { stroke-dashoffset: 300; opacity: 0; }
+  20% { opacity: 1; }
+  80% { opacity: 1; }
+  100% { stroke-dashoffset: 0; opacity: 0; }
+}
+
+.threat-path {
+  stroke-dasharray: 300;
+  animation: data-flow 3s ease-in-out infinite;
+}
+
+/* Glass & Section transitions */
+.glass-panel {
+  background: rgba(4, 11, 20, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(0, 200, 255, 0.15);
+}
+
+.section-in {
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.section-in.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
