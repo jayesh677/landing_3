@@ -76,9 +76,9 @@ export default function HeroRadar() {
         <circle cx="280" cy="260" r="90" stroke="#00c8ff" strokeOpacity="0.15" strokeWidth="1" fill="none" className="ring-anim" style={{ animationDelay: '-1.67s' }} />
 
         {/* Animated Threat Attack Trajectories (Red Curves) */}
-        <path d="M60 80 Q180 160 280 260" stroke="#ff3b5c" strokeOpacity="0.6" strokeWidth="1.5" fill="none" className="threat-path" />
-        <path d="M500 100 Q380 180 280 260" stroke="#ff3b5c" strokeOpacity="0.4" strokeWidth="1" fill="none" className="threat-path" style={{ animationDelay: '-1s' }} />
-        <path d="M420 460 Q340 360 280 260" stroke="#ff3b5c" strokeOpacity="0.3" strokeWidth="1" fill="none" className="threat-path" style={{ animationDelay: '-2s' }} />
+        <path d="M60 80 Q180 160 280 260" stroke="#ff3b5c" strokeOpacity="0.65" strokeWidth="1.5" fill="none" className="threat-path" />
+        <path d="M500 100 Q380 180 280 260" stroke="#ff3b5c" strokeOpacity="0.65" strokeWidth="1.5" fill="none" className="threat-path" style={{ animationDelay: '-1s' }} />
+        <path d="M420 460 Q340 360 280 260" stroke="#ff3b5c" strokeOpacity="0.65" strokeWidth="1.5" fill="none" className="threat-path" style={{ animationDelay: '-2s' }} />
 
         {/* Defense Center Shield Icon (Lighter Glass Aesthetic) */}
         <path
@@ -158,20 +158,43 @@ export default function HeroRadar() {
           <circle cx="280" cy="460" r="4" fill="#00c8ff" />
         </g>
 
-        {/* Threat Node */}
-        <circle cx="60" cy="80" r="18" fill="url(#threatGlow)" />
-        <circle cx="60" cy="80" r="10" fill="none" stroke="#ff3b5c" strokeWidth="1.5" strokeOpacity="0.8" />
-        <circle cx="60" cy="80" r="4" fill="#ff3b5c" className="animate-pulse-dot" />
+        {/* Threat Nodes (3 Active Threats Surrounding Shield) */}
+        {/* Threat 01 - Top Left */}
+        <g>
+          <circle cx="60" cy="80" r="18" fill="url(#threatGlow)" />
+          <circle cx="60" cy="80" r="10" fill="none" stroke="#ff3b5c" strokeWidth="1.5" strokeOpacity="0.85" />
+          <circle cx="60" cy="80" r="4" fill="#ff3b5c" className="animate-pulse-dot" />
+        </g>
+
+        {/* Threat 02 - Top Right */}
+        <g>
+          <circle cx="500" cy="100" r="18" fill="url(#threatGlow)" />
+          <circle cx="500" cy="100" r="10" fill="none" stroke="#ff3b5c" strokeWidth="1.5" strokeOpacity="0.85" />
+          <circle cx="500" cy="100" r="4" fill="#ff3b5c" className="animate-pulse-dot" style={{ animationDelay: '-0.7s' }} />
+        </g>
+
+        {/* Threat 03 - Bottom Right */}
+        <g>
+          <circle cx="420" cy="460" r="18" fill="url(#threatGlow)" />
+          <circle cx="420" cy="460" r="10" fill="none" stroke="#ff3b5c" strokeWidth="1.5" strokeOpacity="0.85" />
+          <circle cx="420" cy="460" r="4" fill="#ff3b5c" className="animate-pulse-dot" style={{ animationDelay: '-1.4s' }} />
+        </g>
 
         {/* Monospace Tactical Labels */}
         <text x="100" y="135" fill="#00c8ff" fillOpacity="0.7" fontSize="9" fontFamily="JetBrains Mono, monospace" letterSpacing="2">
           NODE_04
         </text>
-        <text x="450" y="125" fill="#00c8ff" fillOpacity="0.7" fontSize="9" fontFamily="JetBrains Mono, monospace" letterSpacing="2">
+        <text x="440" y="150" fill="#00c8ff" fillOpacity="0.7" fontSize="9" fontFamily="JetBrains Mono, monospace" letterSpacing="2">
           NODE_07
         </text>
-        <text x="30" y="75" fill="#ff3b5c" fillOpacity="0.9" fontSize="9" fontFamily="JetBrains Mono, monospace" letterSpacing="2" fontWeight="700">
-          THREAT
+        <text x="25" y="65" fill="#ff3b5c" fillOpacity="0.9" fontSize="9" fontFamily="JetBrains Mono, monospace" letterSpacing="2" fontWeight="700">
+          THREAT_01
+        </text>
+        <text x="460" y="85" fill="#ff3b5c" fillOpacity="0.9" fontSize="9" fontFamily="JetBrains Mono, monospace" letterSpacing="2" fontWeight="700">
+          THREAT_02
+        </text>
+        <text x="375" y="485" fill="#ff3b5c" fillOpacity="0.9" fontSize="9" fontFamily="JetBrains Mono, monospace" letterSpacing="2" fontWeight="700">
+          THREAT_03
         </text>
 
         {/* Continuous Laser Radar Scanline */}
