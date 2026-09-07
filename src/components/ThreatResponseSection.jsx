@@ -33,12 +33,25 @@ export default function ThreatResponseSection({ onOpenDemo }) {
     },
   ];
 
+  const isManualScrolling = useRef(false);
+  const scrollTimeout = useRef(null);
+
   useEffect(() => {
     const handleScroll = () => {
-      if (!sectionRef.current) return;
+      if (!sectionRef.current || isManualScrolling.current) return;
 
       const viewportHeight = window.innerHeight;
       const focalPoint = viewportHeight * 0.45;
+
+      // If last item is scrolled into view, activate the final containment step
+      const lastItem = itemRefs.current[itemRefs.current.length - 1];
+      if (lastItem) {
+        const lastRect = lastItem.getBoundingClientRect();
+        if (lastRect.top <= viewportHeight * 0.65) {
+          setActiveStep(itemRefs.current.length - 1);
+          return;
+        }
+      }
 
       let closestIndex = 0;
       let minDistance = Infinity;
@@ -61,15 +74,24 @@ export default function ThreatResponseSection({ onOpenDemo }) {
     window.addEventListener('scroll', handleScroll, { passive: true });
     handleScroll();
 
-    return () => window.removeEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      if (scrollTimeout.current) clearTimeout(scrollTimeout.current);
+    };
   }, []);
 
   const handleItemClick = (idx) => {
     setActiveStep(idx);
+    isManualScrolling.current = true;
+    if (scrollTimeout.current) clearTimeout(scrollTimeout.current);
+    scrollTimeout.current = setTimeout(() => {
+      isManualScrolling.current = false;
+    }, 900);
+
     if (itemRefs.current[idx]) {
       const rect = itemRefs.current[idx].getBoundingClientRect();
       const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-      const targetY = scrollTop + rect.top - window.innerHeight * 0.35;
+      const targetY = scrollTop + rect.top - window.innerHeight * 0.4;
       window.scrollTo({ top: targetY, behavior: 'smooth' });
     }
   };

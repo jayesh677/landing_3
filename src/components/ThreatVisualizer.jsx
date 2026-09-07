@@ -43,6 +43,20 @@ export default function ThreatVisualizer({ activeStep }) {
               <stop offset="0%" stopColor="#00e5a0" stopOpacity="0.6" />
               <stop offset="100%" stopColor="#00e5a0" stopOpacity="0" />
             </radialGradient>
+            <linearGradient id="shieldGradContain" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stopColor="#185e4d" stopOpacity="0.9" />
+              <stop offset="50%" stopColor="#0f4437" stopOpacity="0.93" />
+              <stop offset="100%" stopColor="#072921" stopOpacity="0.96" />
+            </linearGradient>
+            <linearGradient id="shieldBorderContain" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stopColor="#a7f3d0" stopOpacity="1" />
+              <stop offset="60%" stopColor="#34d399" stopOpacity="0.95" />
+              <stop offset="100%" stopColor="#059669" stopOpacity="0.8" />
+            </linearGradient>
+            <radialGradient id="shieldInnerGlowContain" cx="50%" cy="35%" r="60%">
+              <stop offset="0%" stopColor="#6ee7b7" stopOpacity="0.45" />
+              <stop offset="100%" stopColor="#00e5a0" stopOpacity="0.12" />
+            </radialGradient>
           </defs>
 
           {/* Central Defense Zone Ellipse on Left-Center */}
@@ -181,31 +195,38 @@ export default function ThreatVisualizer({ activeStep }) {
               <circle cx="220" cy="220" r="68" fill="url(#containmentGlow)" />
               <circle cx="220" cy="220" r="68" stroke="#00e5a0" strokeWidth="2.2" fill="rgba(0, 229, 160, 0.06)" />
 
-              {/* Protective Central Defense Shield - Appears ONLY in Stage 04 */}
-              <g style={{ filter: 'drop-shadow(0 0 16px rgba(0,229,160,0.6))' }}>
+              {/* Protective Central Defense Shield - Appears ONLY in Stage 04 (Lighter Glass Aesthetic) */}
+              <g className="filter drop-shadow-[0_0_18px_rgba(0,229,160,0.4)]">
                 <path
                   d="M220 185 L252 198 L252 235 Q252 260 220 272 Q188 260 188 235 L188 198 Z"
-                  fill="#040b14"
-                  stroke="#00e5a0"
-                  strokeWidth="2"
-                  strokeOpacity="1"
+                  fill="url(#shieldGradContain)"
+                  stroke="url(#shieldBorderContain)"
+                  strokeWidth="1.6"
+                />
+                <path
+                  d="M220 193 L246 204 L246 235 Q246 255 220 265 Q194 255 194 235 L194 204 Z"
+                  fill="url(#shieldInnerGlowContain)"
+                  stroke="#a7f3d0"
+                  strokeWidth="0.8"
+                  strokeOpacity="0.55"
                 />
                 <path
                   d="M210 226 L217 234 L232 218"
-                  stroke="#00e5a0"
+                  stroke="#e6fffa"
                   strokeWidth="2.5"
                   strokeLinecap="round"
                   strokeLinejoin="round"
+                  className="filter drop-shadow-[0_0_6px_rgba(0,229,160,0.8)]"
                 />
               </g>
 
               {/* Neutralized Threat inside quarantine */}
               <circle cx="220" cy="220" r="10" stroke="#00e5a0" strokeWidth="1.5" fill="none" className="ring-anim" />
 
-              <text x="220" y="145" fill="#00e5a0" fontSize="10" textAnchor="middle" fontFamily="JetBrains Mono, monospace" fontWeight="bold" letterSpacing="1.5">
+              <text x="220" y="132" fill="#00e5a0" fontSize="10" textAnchor="middle" fontFamily="JetBrains Mono, monospace" fontWeight="bold" letterSpacing="1.5">
                 THREAT_CONTAINED // ZERO_IMPACT
               </text>
-              <text x="220" y="320" fill="#00e5a0" textAnchor="middle" fontSize="9" fontFamily="JetBrains Mono, monospace" letterSpacing="2">
+              <text x="220" y="322" fill="#00e5a0" textAnchor="middle" fontSize="9" fontFamily="JetBrains Mono, monospace" letterSpacing="2">
                 PERIMETER_SECURED // 100% BLOCKED
               </text>
             </g>
