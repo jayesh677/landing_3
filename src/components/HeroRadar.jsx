@@ -81,13 +81,20 @@ export default function HeroRadar() {
           strokeWidth="0.5"
           strokeOpacity="0.3"
         />
-        <path
-          d="M268 252 L276 261 L294 243"
-          stroke="#00c8ff"
-          strokeWidth="2.2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
+        <text
+          x="280"
+          y="252"
+          textAnchor="middle"
+          dominantBaseline="central"
+          fill="#00c8ff"
+          fontSize="10.5"
+          fontWeight="800"
+          fontFamily="JetBrains Mono, monospace"
+          letterSpacing="0.04em"
+          className="select-none filter drop-shadow-[0_0_8px_rgba(0,200,255,0.5)]"
+        >
+          EDR/XDR
+        </text>
 
         {/* Network Connection Lines */}
         <line x1="120" y1="140" x2="280" y2="260" stroke="#00c8ff" strokeOpacity="0.1" strokeWidth="1" />
