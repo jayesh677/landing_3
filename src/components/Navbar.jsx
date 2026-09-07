@@ -1,134 +1,164 @@
 import React, { useState, useEffect } from 'react';
 
 export default function Navbar({ onOpenDemo, onOpenContact }) {
-  const [scrolled, setScrolled] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 20);
+      if (window.scrollY > 30) {
+        setIsScrolled(true);
+      } else {
+        setIsScrolled(false);
+      }
     };
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   const navLinks = [
-    { name: 'Platform', href: '#platform' },
-    { name: 'Solutions', href: '#threat-response' },
-    { name: 'Resources', href: '#intelligence' },
-    { name: 'Company', href: '#advantage' },
+    { label: 'Platform', href: '#platform' },
+    { label: 'Solutions', href: '#threat-response' },
+    { label: 'Services', href: '#advantage' },
+    { label: 'Partners', href: '#metrics' },
+    { label: 'Pricing', href: '#intelligence' },
   ];
 
   return (
-    <nav
-      className="fixed top-0 left-0 right-0 z-50 transition-all duration-500"
-      style={{
-        background: scrolled ? 'rgba(3, 8, 15, 0.85)' : 'transparent',
-        backdropFilter: scrolled ? 'blur(16px)' : 'none',
-        WebkitBackdropFilter: scrolled ? 'blur(16px)' : 'none',
-        borderBottom: scrolled ? '1px solid rgba(0, 200, 255, 0.12)' : '1px solid transparent',
-        padding: scrolled ? '14px 0' : '20px 0',
-      }}
+    <header
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        isScrolled
+          ? 'bg-[#050510]/85 backdrop-blur-md border-b border-white/[0.06] py-3.5'
+          : 'bg-transparent py-5'
+      }`}
     >
-      <div className="max-w-[1280px] mx-auto px-8 flex items-center justify-between">
-        {/* Logo */}
-        <a href="#" className="flex items-center gap-3 cursor-pointer group">
-          <img
-            src="/logo.png"
-            alt="XSAV Endpoint Security Logo"
-            className="w-7 h-7 object-contain transition-transform group-hover:scale-105"
-          />
-          <div className="flex flex-col">
-            <span style={{ fontFamily: 'var(--font-mono)', fontSize: '15px', fontWeight: 800, letterSpacing: '0.06em', color: '#d8eaf8', lineHeight: 1.1 }}>
-              XSAV
-            </span>
-            <span style={{ fontFamily: 'var(--font-mono)', fontSize: '7.5px', fontWeight: 600, letterSpacing: '0.16em', color: '#00c8ff', lineHeight: 1 }}>
-              ENDPOINT SECURITY
-            </span>
-          </div>
-        </a>
+      <div className="max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between">
+          
+          {/* Brand Logo (XSAV Endpoint Security) */}
+          <a href="#" className="flex items-center space-x-3 group cursor-pointer focus:outline-none">
+            <div className="relative flex h-8 w-8 items-center justify-center transition-transform group-hover:scale-105">
+              <svg
+                viewBox="0 0 100 100"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-7 w-7 drop-shadow-[0_0_12px_rgba(0,212,255,0.4)]"
+              >
+                <defs>
+                  <linearGradient id="xsav-nav-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stopColor="#38bdf8" />
+                    <stop offset="100%" stopColor="#00d4ff" />
+                  </linearGradient>
+                </defs>
+                <polygon points="0,0 50,0 50,50" fill="url(#xsav-nav-grad)" />
+                <polygon points="50,0 100,0 100,50" fill="url(#xsav-nav-grad)" />
+                <polygon points="0,50 50,50 50,100" fill="url(#xsav-nav-grad)" />
+                <polygon points="50,50 100,50 100,100" fill="url(#xsav-nav-grad)" />
+              </svg>
+            </div>
+            
+            <div className="flex items-center space-x-1.5">
+              <span className="text-[16.5px] sm:text-[17.5px] font-bold tracking-tight text-white font-body">
+                XSAV Endpoint Security
+              </span>
+            </div>
+          </a>
 
-        {/* Desktop Nav Links */}
-        <div className="hidden md:flex items-center gap-8">
-          {navLinks.map((link) => (
-            <a
-              key={link.name}
-              href={link.href}
-              className="relative group py-1 text-[12px] font-mono font-medium tracking-[0.08em] text-[#94afc8] hover:text-[#d8eaf8] transition-colors"
+          {/* Desktop Center Navigation */}
+          <nav className="hidden md:flex items-center space-x-7">
+            {navLinks.map((item) => (
+              <a
+                key={item.label}
+                href={item.href}
+                className="text-[13.5px] font-medium text-[#94A3B8] hover:text-white transition-colors duration-200"
+              >
+                {item.label}
+              </a>
+            ))}
+          </nav>
+
+          {/* Right Action Items */}
+          <div className="hidden md:flex items-center space-x-5">
+            <button
+              onClick={onOpenContact}
+              className="text-[13.5px] font-medium text-[#CBD5E1] hover:text-white transition-colors cursor-pointer"
             >
-              {link.name}
-              <span className="absolute bottom-0 left-0 w-0 h-[1px] bg-[#00c8ff] transition-all duration-300 group-hover:w-full" />
-            </a>
-          ))}
-        </div>
+              Sign In
+            </button>
 
-        {/* Desktop CTA Buttons */}
-        <div className="hidden md:flex items-center gap-3">
-          <button
-            onClick={onOpenContact}
-            className="font-mono text-[11px] font-medium tracking-[0.1em] text-[#94afc8] hover:text-[#d8eaf8] uppercase px-3 py-2 transition-colors cursor-pointer rounded-[6px]"
-          >
-            Login
-          </button>
-          <button
-            onClick={onOpenContact}
-            className="font-mono text-[11px] font-medium tracking-[0.1em] text-[#00c8ff] hover:text-[#33d4ff] hover:border-[#00c8ff] uppercase px-4 py-2 border border-[#00c8ff]/30 transition-all cursor-pointer hover:bg-[#00c8ff]/5 rounded-[8px]"
-          >
-            Contact Sales
-          </button>
-          <button
-            onClick={onOpenDemo}
-            className="cyber-btn-primary text-[11px] !py-[9px] !px-5"
-          >
-            Get a Demo
-          </button>
-        </div>
+            <button
+              onClick={onOpenDemo}
+              className="relative inline-flex items-center justify-center rounded-lg bg-[#667eea] hover:bg-[#5a6fd6] px-5 py-2 text-[13.5px] font-semibold text-white shadow-[0_0_18px_rgba(102,126,234,0.3)] hover:shadow-[0_0_24px_rgba(102,126,234,0.5)] transition-all duration-200 cursor-pointer"
+            >
+              Get Started
+            </button>
+          </div>
 
-        {/* Mobile Menu Button */}
-        <button
-          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          className="md:hidden p-2 text-[#00c8ff] cursor-pointer rounded-[6px]"
-          aria-label="Toggle menu"
-        >
-          <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
-            {mobileMenuOpen ? (
-              <path d="M4 4L18 18M18 4L4 18" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-            ) : (
-              <path d="M3 6h16 M3 11h16 M3 16h16" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-            )}
-          </svg>
-        </button>
+          {/* Mobile Hamburger Toggle */}
+          <div className="flex md:hidden items-center space-x-3">
+            <button
+              onClick={onOpenDemo}
+              className="rounded-lg bg-[#667eea] hover:bg-[#5a6fd6] px-3.5 py-1.5 text-xs font-semibold text-white shadow-sm cursor-pointer"
+            >
+              Get Started
+            </button>
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="p-1.5 text-[#94A3B8] hover:text-white focus:outline-none cursor-pointer"
+              aria-label="Toggle Navigation Menu"
+            >
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                {mobileMenuOpen ? (
+                  <path d="M18 6L6 18M6 6l12 12" />
+                ) : (
+                  <path d="M4 6h16M4 12h16M4 18h16" />
+                )}
+              </svg>
+            </button>
+          </div>
+
+        </div>
       </div>
 
-      {/* Mobile Drawer */}
+      {/* Mobile Drawer Menu */}
       {mobileMenuOpen && (
-        <div className="md:hidden bg-[#03080f]/95 backdrop-blur-xl border-b border-[#00c8ff]/20 px-8 py-6 flex flex-col gap-4 animate-fade-up rounded-b-[14px]">
-          {navLinks.map((link) => (
-            <a
-              key={link.name}
-              href={link.href}
-              onClick={() => setMobileMenuOpen(false)}
-              className="font-mono text-sm tracking-wider text-[#94afc8] hover:text-[#00c8ff] py-2 border-b border-[#00c8ff]/10"
-            >
-              {link.name}
-            </a>
-          ))}
-          <div className="flex flex-col gap-3 pt-4">
-            <button
-              onClick={() => { setMobileMenuOpen(false); onOpenContact(); }}
-              className="w-full font-mono text-xs uppercase py-3 border border-[#00c8ff]/30 text-[#00c8ff] rounded-[8px]"
-            >
-              Contact Sales
-            </button>
-            <button
-              onClick={() => { setMobileMenuOpen(false); onOpenDemo(); }}
-              className="cyber-btn-primary w-full justify-center text-xs py-3"
-            >
-              Get a Demo
-            </button>
+        <div className="md:hidden border-b border-white/[0.08] bg-[#050510]/98 backdrop-blur-2xl overflow-hidden animate-fade-up">
+          <div className="px-5 py-6 space-y-4">
+            {navLinks.map((item) => (
+              <a
+                key={item.label}
+                href={item.href}
+                onClick={() => setMobileMenuOpen(false)}
+                className="block text-sm font-medium text-[#CBD5E1] hover:text-white py-1.5"
+              >
+                {item.label}
+              </a>
+            ))}
+
+            <div className="pt-4 border-t border-white/[0.08] space-y-3">
+              <button
+                onClick={() => {
+                  setMobileMenuOpen(false);
+                  onOpenContact();
+                }}
+                className="w-full text-center text-sm font-medium text-[#CBD5E1] py-2 cursor-pointer hover:text-white"
+              >
+                Sign In
+              </button>
+              <button
+                onClick={() => {
+                  setMobileMenuOpen(false);
+                  onOpenDemo();
+                }}
+                className="w-full rounded-lg bg-[#667eea] hover:bg-[#5a6fd6] py-2.5 text-sm font-semibold text-white shadow-sm cursor-pointer"
+              >
+                Get Started
+              </button>
+            </div>
           </div>
         </div>
       )}
-    </nav>
+    </header>
   );
 }
+
