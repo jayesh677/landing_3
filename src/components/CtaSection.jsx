@@ -3,12 +3,37 @@ import React from 'react';
 export default function CtaSection({ onOpenDemo, onOpenContact }) {
   return (
     <section className="bg-[var(--bg2)] py-[140px] border-t border-[#00c8ff]/[0.06] relative overflow-hidden text-center">
+      {/* Background Atmospheric Auroras */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        {/* Purple/Indigo Aurora Glow (Top-Left) */}
+        <div 
+          className="absolute -top-32 -left-32 w-[550px] h-[550px] rounded-full blur-[140px] opacity-35"
+          style={{
+            background: 'radial-gradient(circle, rgba(118, 75, 162, 0.45) 0%, rgba(102, 126, 234, 0.25) 50%, transparent 80%)'
+          }}
+        />
+        {/* Electric Cyan/Blue Aurora Glow (Bottom-Right) */}
+        <div 
+          className="absolute -bottom-32 -right-32 w-[600px] h-[600px] rounded-full blur-[150px] opacity-30"
+          style={{
+            background: 'radial-gradient(circle, rgba(0, 212, 255, 0.4) 0%, rgba(59, 130, 246, 0.2) 50%, transparent 80%)'
+          }}
+        />
+        {/* Central Atmospheric Diffusion */}
+        <div 
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[850px] h-[450px] rounded-full blur-[160px] opacity-25"
+          style={{
+            background: 'radial-gradient(ellipse, rgba(102, 126, 234, 0.3) 0%, rgba(0, 212, 255, 0.15) 50%, transparent 80%)'
+          }}
+        />
+      </div>
+
       {/* Background Cyber SVG Glow */}
       <div className="absolute inset-0 pointer-events-none flex items-center justify-center">
         <svg
           viewBox="0 0 1440 560"
           preserveAspectRatio="xMidYMid slice"
-          className="w-full h-full opacity-40"
+          className="w-full h-full opacity-35"
         >
           <defs>
             <radialGradient id="ctaGlow" cx="50%" cy="50%" r="50%">

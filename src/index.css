@@ -196,3 +196,48 @@ body {
   opacity: 1;
   transform: translateY(0);
 }
+
+/* Atmospheric Gradient Animation Keyframes */
+@keyframes atmosphericPulse1 {
+  0%, 100% {
+    transform: scale(1) translate(0px, 0px);
+    opacity: 0.82;
+  }
+  50% {
+    transform: scale(1.06) translate(12px, -10px);
+    opacity: 0.98;
+  }
+}
+
+@keyframes atmosphericPulse2 {
+  0%, 100% {
+    transform: scale(1) translate(0px, 0px);
+    opacity: 0.78;
+  }
+  50% {
+    transform: scale(1.08) translate(-14px, 12px);
+    opacity: 0.95;
+  }
+}
+
+@keyframes gridFloat {
+  0% {
+    background-position: 0px 0px;
+  }
+  100% {
+    background-position: 54px 54px;
+  }
+}
+
+.animate-atmospheric-1 {
+  animation: atmosphericPulse1 22s ease-in-out infinite alternate;
+}
+
+.animate-atmospheric-2 {
+  animation: atmosphericPulse2 26s ease-in-out infinite alternate;
+}
+
+.animate-grid-float {
+  animation: gridFloat 35s linear infinite;
+}
+
