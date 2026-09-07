@@ -32,6 +32,20 @@ export default function HeroRadar() {
             <stop offset="0%" stopColor="#ff3b5c" stopOpacity="0.7" />
             <stop offset="100%" stopColor="#ff3b5c" stopOpacity="0" />
           </radialGradient>
+          <linearGradient id="shieldGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stopColor="#103058" stopOpacity="0.88" />
+            <stop offset="50%" stopColor="#0c2240" stopOpacity="0.92" />
+            <stop offset="100%" stopColor="#061528" stopOpacity="0.96" />
+          </linearGradient>
+          <linearGradient id="shieldBorder" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stopColor="#67e8f9" stopOpacity="1" />
+            <stop offset="60%" stopColor="#38bdf8" stopOpacity="0.9" />
+            <stop offset="100%" stopColor="#0284c7" stopOpacity="0.7" />
+          </linearGradient>
+          <radialGradient id="shieldInnerGlow" cx="50%" cy="35%" r="60%">
+            <stop offset="0%" stopColor="#38bdf8" stopOpacity="0.3" />
+            <stop offset="100%" stopColor="#00c8ff" stopOpacity="0.05" />
+          </radialGradient>
           <filter id="blur4">
             <feGaussianBlur stdDeviation="4" />
           </filter>
@@ -66,32 +80,32 @@ export default function HeroRadar() {
         <path d="M500 100 Q380 180 280 260" stroke="#ff3b5c" strokeOpacity="0.4" strokeWidth="1" fill="none" className="threat-path" style={{ animationDelay: '-1s' }} />
         <path d="M420 460 Q340 360 280 260" stroke="#ff3b5c" strokeOpacity="0.3" strokeWidth="1" fill="none" className="threat-path" style={{ animationDelay: '-2s' }} />
 
-        {/* Defense Center Shield Icon */}
+        {/* Defense Center Shield Icon (Lighter Glass Aesthetic) */}
         <path
           d="M280 195 L320 210 L320 255 Q320 285 280 300 Q240 285 240 255 L240 210 Z"
-          fill="#03080f"
-          stroke="#00c8ff"
-          strokeWidth="1.5"
-          strokeOpacity="0.85"
+          fill="url(#shieldGrad)"
+          stroke="url(#shieldBorder)"
+          strokeWidth="1.6"
+          className="filter drop-shadow-[0_0_16px_rgba(56,189,248,0.25)]"
         />
         <path
           d="M280 205 L313 218 L313 255 Q313 279 280 292 Q247 279 247 255 L247 218 Z"
-          fill="none"
-          stroke="#00c8ff"
-          strokeWidth="0.5"
-          strokeOpacity="0.3"
+          fill="url(#shieldInnerGlow)"
+          stroke="#67e8f9"
+          strokeWidth="0.8"
+          strokeOpacity="0.55"
         />
         <text
           x="280"
           y="252"
           textAnchor="middle"
           dominantBaseline="central"
-          fill="#00c8ff"
-          fontSize="10.5"
+          fill="#e0f2fe"
+          fontSize="11"
           fontWeight="800"
           fontFamily="JetBrains Mono, monospace"
           letterSpacing="0.04em"
-          className="select-none filter drop-shadow-[0_0_8px_rgba(0,200,255,0.5)]"
+          className="select-none filter drop-shadow-[0_0_10px_rgba(103,232,249,0.7)]"
         >
           EDR/XDR
         </text>
