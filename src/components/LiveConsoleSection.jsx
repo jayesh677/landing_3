@@ -222,7 +222,7 @@ export default function LiveConsoleSection({ onOpenDemo }) {
             </div>
 
             {/* Dominant Headline (Left-aligned typography) */}
-            <h2 className="text-[clamp(28px,3.2vw,48px)] font-extrabold leading-[1.06] tracking-[-0.03em] text-[#e8f2ff] font-mono mb-6 text-left">
+            <h2 className="text-[clamp(28px,3.2vw,48px)] font-extrabold leading-[1.06] tracking-[-0.035em] text-[#e8f2ff] font-display mb-6 text-left">
               INTELLIGENCE<br />
               <span className="text-[#4a6580] font-light">AT EVERY</span><br />
               LAYER.

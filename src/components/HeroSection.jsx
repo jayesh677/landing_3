@@ -100,7 +100,7 @@ export default function HeroSection({ onOpenDemo, onExplorePlatform }) {
             <span className="text-[#00c8ff]">—</span> AUTONOMOUS CYBERSECURITY
           </div>
 
-          <h1 className="text-[clamp(36px,4.8vw,66px)] font-extrabold leading-[1] tracking-[-0.03em] text-[#e8f2ff] mb-7 font-mono">
+          <h1 className="text-[clamp(36px,4.8vw,66px)] font-extrabold leading-[1.04] tracking-[-0.035em] text-[#e8f2ff] mb-7 font-display">
             STOP THREATS<br />
             <span className="text-[#00c8ff]">BEFORE</span> THEY<br />
             BECOME BREACHES.

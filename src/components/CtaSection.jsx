@@ -61,7 +61,7 @@ export default function CtaSection({ onOpenDemo, onOpenContact }) {
           <span>—</span> Get Started
         </div>
 
-        <h2 className="text-[clamp(34px,4.8vw,68px)] font-extrabold leading-[0.95] tracking-[-0.04em] text-[#e8f2ff] mb-8 font-mono">
+        <h2 className="text-[clamp(34px,4.8vw,68px)] font-extrabold leading-[0.95] tracking-[-0.04em] text-[#e8f2ff] mb-8 font-display">
           SECURE<br />
           <span className="text-[#00c8ff]">WHAT'S</span><br />
           NEXT.

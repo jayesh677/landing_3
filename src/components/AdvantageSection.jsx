@@ -9,7 +9,7 @@ export default function AdvantageSection() {
           <div className="eyebrow mb-5">
             <span>—</span> Our Advantage
           </div>
-          <h2 className="text-[clamp(26px,3vw,46px)] font-extrabold leading-[1.1] tracking-[-0.03em] text-[#e8f2ff] font-mono">
+          <h2 className="text-[clamp(26px,3vw,46px)] font-extrabold leading-[1.1] tracking-[-0.035em] text-[#e8f2ff] font-display">
             SECURITY THAT THINKS.<br />
             <span className="text-[#00c8ff]">SECURITY THAT ACTS.</span>
           </h2>

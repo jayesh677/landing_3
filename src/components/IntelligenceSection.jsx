@@ -43,7 +43,7 @@ export default function IntelligenceSection({ onSelectArticle }) {
             <div className="eyebrow mb-5">
               <span>—</span> Intelligence
             </div>
-            <h2 className="text-[clamp(24px,2.6vw,42px)] font-extrabold tracking-[-0.03em] text-[#e8f2ff] font-mono">
+            <h2 className="text-[clamp(24px,2.6vw,42px)] font-extrabold tracking-[-0.035em] text-[#e8f2ff] font-display">
               STAY AHEAD<br />
               OF THE THREAT.
             </h2>

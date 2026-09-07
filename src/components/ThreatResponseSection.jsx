@@ -109,7 +109,7 @@ export default function ThreatResponseSection({ onOpenDemo }) {
               <div className="eyebrow mb-4 flex items-center gap-2">
                 <span className="text-[#00c8ff]">—</span> Threat Response
               </div>
-              <h2 className="text-[clamp(28px,3.2vw,48px)] font-extrabold leading-[1.05] tracking-[-0.03em] text-[#e8f2ff] font-mono">
+              <h2 className="text-[clamp(28px,3.2vw,48px)] font-extrabold leading-[1.05] tracking-[-0.035em] text-[#e8f2ff] font-display">
                 THE THREAT MOVES FAST.<br />
                 <span className="text-[#4a6580] font-light">YOUR DEFENSE HAS TO</span><br />
                 MOVE FASTER.

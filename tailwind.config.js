@@ -23,6 +23,8 @@ export default {
         border: 'var(--border)',
       },
       fontFamily: {
+        display: ['"Plus Jakarta Sans"', 'Inter', 'system-ui', 'sans-serif'],
+        sans: ['"Plus Jakarta Sans"', 'Inter', 'system-ui', 'sans-serif'],
         mono: ['"JetBrains Mono"', 'monospace'],
         body: ['"Inter"', 'sans-serif'],
       },

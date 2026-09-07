@@ -109,7 +109,7 @@ export default function PlatformSection({ onSelectModule }) {
               </div>
 
               {/* Large Headline */}
-              <h2 className="text-[clamp(30px,3.5vw,52px)] font-extrabold leading-[1.02] tracking-[-0.03em] text-[#e8f2ff] font-mono mb-6">
+              <h2 className="text-[clamp(30px,3.5vw,52px)] font-extrabold leading-[1.04] tracking-[-0.035em] text-[#e8f2ff] font-display mb-6">
                 ONE PLATFORM.<br />
                 <span className="text-[#00c8ff]">COMPLETE</span><br />
                 VISIBILITY.
