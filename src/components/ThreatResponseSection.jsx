@@ -43,11 +43,11 @@ export default function ThreatResponseSection({ onOpenDemo }) {
       const viewportHeight = window.innerHeight;
       const focalPoint = viewportHeight * 0.45;
 
-      // If last item is scrolled into view, activate the final containment step
+      // If last item is scrolled into focal zone, activate the final containment step
       const lastItem = itemRefs.current[itemRefs.current.length - 1];
       if (lastItem) {
         const lastRect = lastItem.getBoundingClientRect();
-        if (lastRect.top <= viewportHeight * 0.65) {
+        if (lastRect.top <= viewportHeight * 0.52) {
           setActiveStep(itemRefs.current.length - 1);
           return;
         }
@@ -91,7 +91,7 @@ export default function ThreatResponseSection({ onOpenDemo }) {
     if (itemRefs.current[idx]) {
       const rect = itemRefs.current[idx].getBoundingClientRect();
       const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-      const targetY = scrollTop + rect.top - window.innerHeight * 0.4;
+      const targetY = scrollTop + rect.top - (window.innerHeight * 0.45 - rect.height / 2);
       window.scrollTo({ top: targetY, behavior: 'smooth' });
     }
   };
@@ -109,8 +109,8 @@ export default function ThreatResponseSection({ onOpenDemo }) {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
           
           {/* LEFT SIDE (55% / 6-7 cols): Pinned Threat Visualizer */}
-          <div className="lg:col-span-6 lg:sticky lg:top-[18vh] flex flex-col items-center justify-center order-2 lg:order-1 self-start">
-            <div className="w-full bg-[#040b14]/70 border border-[#00c8ff]/15 rounded-[16px] p-4 lg:p-6 backdrop-blur-md relative overflow-hidden shadow-[0_0_40px_rgba(0,200,255,0.06)]">
+          <div className="lg:col-span-6 lg:sticky lg:top-[18vh] flex flex-col items-center justify-center order-2 lg:order-1">
+            <div className="w-full bg-[#040b14]/50 border border-[#00c8ff]/10 rounded-[14px] p-4 lg:p-6 backdrop-blur-sm relative overflow-hidden">
               {/* Direction Indicator Banner */}
               <div className="flex items-center justify-between font-sans text-[11px] sm:text-[11.5px] font-semibold tracking-[0.08em] uppercase text-[#4a6580] border-b border-[#00c8ff]/10 pb-3 mb-2.5">
                 <span className="text-[#00c8ff] font-bold tracking-[0.1em]">AUTONOMOUS DEFENSE ENGINE</span>
@@ -122,25 +122,26 @@ export default function ThreatResponseSection({ onOpenDemo }) {
               {/* Threat Visualizer SVG with Right-to-Left Vector Progression */}
               <ThreatVisualizer activeStep={activeStep} />
 
-              {/* Interactive Step Navigator Bar */}
-              <div className="flex items-center justify-between gap-2 pt-3 mt-2 border-t border-[#00c8ff]/10">
-                {steps.map((step, idx) => {
-                  const isActive = activeStep === idx;
-                  return (
+              {/* Interactive Step Dwell / Stage Indicators */}
+              <div className="flex items-center justify-between mt-3 pt-2.5 border-t border-[#00c8ff]/10">
+                <div className="flex items-center gap-1.5">
+                  {steps.map((s, idx) => (
                     <button
-                      key={step.num}
+                      key={s.num}
                       onClick={() => handleItemClick(idx)}
-                      className={`flex-1 py-1.5 px-2 rounded-[8px] font-mono text-[10px] tracking-wider transition-all duration-300 text-center cursor-pointer border ${
-                        isActive
-                          ? 'bg-[#00c8ff]/15 border-[#00c8ff]/60 text-[#00c8ff] font-bold shadow-[0_0_12px_rgba(0,200,255,0.25)]'
-                          : 'bg-transparent border-[#00c8ff]/10 text-[#4a6580] hover:text-[#8daac5] hover:border-[#00c8ff]/30'
+                      className={`px-2.5 py-1 rounded text-[10px] font-mono font-bold transition-all ${
+                        activeStep === idx
+                          ? 'bg-[#00c8ff]/20 text-[#00c8ff] border border-[#00c8ff]/40 shadow-[0_0_10px_rgba(0,200,255,0.25)]'
+                          : 'text-[#4a6580] hover:text-[#8daac5] border border-transparent'
                       }`}
                     >
-                      <span className="block sm:inline">{step.num}</span>{' '}
-                      <span className="hidden sm:inline opacity-80">{step.tag}</span>
+                      {s.num}
                     </button>
-                  );
-                })}
+                  ))}
+                </div>
+                <div className="text-[10px] font-mono text-[#4a6580]">
+                  STAGE <span className="text-[#00c8ff] font-bold">0{activeStep + 1}</span> / 04
+                </div>
               </div>
             </div>
           </div>
@@ -148,7 +149,7 @@ export default function ThreatResponseSection({ onOpenDemo }) {
           {/* RIGHT SIDE (45% / 6 cols): Header + Vertical Narrative Timeline */}
           <div className="lg:col-span-6 flex flex-col order-1 lg:order-2">
             {/* Section Header */}
-            <div className="mb-14">
+            <div className="mb-8 lg:mb-12">
               <div className="eyebrow mb-4 flex items-center gap-2">
                 <span className="text-[#00c8ff]">—</span> Threat Response
               </div>
@@ -162,8 +163,8 @@ export default function ThreatResponseSection({ onOpenDemo }) {
               </p>
             </div>
 
-            {/* 4 Sequential Scroll Storytelling Blocks with generous pacing */}
-            <div className="flex flex-col space-y-24 md:space-y-32">
+            {/* 4 Sequential Scroll Storytelling Items with Dedicated Pacing & Scroll Dwell */}
+            <div className="flex flex-col space-y-6 pb-20">
               {steps.map((step, idx) => {
                 const isActive = activeStep === idx;
 
@@ -172,16 +173,17 @@ export default function ThreatResponseSection({ onOpenDemo }) {
                     key={step.num}
                     ref={(el) => (itemRefs.current[idx] = el)}
                     onClick={() => handleItemClick(idx)}
-                    className={`group cursor-pointer transition-all duration-500 ease-out text-left max-w-[520px] p-6 sm:p-7 rounded-[14px] border relative ${
+                    style={{ scrollSnapAlign: 'center', scrollMarginTop: '25vh' }}
+                    className={`group cursor-pointer transition-all duration-700 ease-in-out text-left max-w-[500px] min-h-[68vh] sm:min-h-[74vh] lg:min-h-[78vh] flex flex-col justify-center py-6 ${
                       isActive
-                        ? 'bg-[#040b14]/75 border-[#00c8ff]/35 shadow-[0_0_30px_rgba(0,200,255,0.08)] translate-y-0 opacity-100'
-                        : 'bg-transparent border-[#00c8ff]/[0.04] opacity-35 hover:opacity-60 hover:border-[#00c8ff]/15 translate-y-1'
+                        ? 'opacity-100 translate-y-0 filter-none'
+                        : 'opacity-30 translate-y-2 blur-[0.3px] hover:opacity-50'
                     }`}
                   >
                     {/* Step Number & Category */}
-                    <div className="flex items-center gap-3 mb-3">
+                    <div className="flex items-center gap-3 mb-2.5">
                       <span
-                        className={`font-mono text-[13px] font-bold tracking-[0.2em] transition-colors duration-500 ${
+                        className={`font-mono text-[13px] font-bold tracking-[0.2em] transition-colors duration-700 ease-in-out ${
                           isActive ? 'text-[#00c8ff]' : 'text-[#2a4060]'
                         }`}
                       >
@@ -189,7 +191,7 @@ export default function ThreatResponseSection({ onOpenDemo }) {
                       </span>
                       <span className="w-3 h-[1px] bg-[#00c8ff]/20" />
                       <span
-                        className={`font-mono text-[11px] font-bold tracking-[0.2em] uppercase transition-colors duration-500 ${
+                        className={`font-mono text-[11px] font-bold tracking-[0.2em] uppercase transition-colors duration-700 ease-in-out ${
                           isActive ? 'text-[#00c8ff]' : 'text-[#4a6580]'
                         }`}
                       >
@@ -199,7 +201,7 @@ export default function ThreatResponseSection({ onOpenDemo }) {
 
                     {/* Headline */}
                     <h3
-                      className={`font-display text-[clamp(19px,2.1vw,24px)] font-bold leading-[1.25] tracking-[-0.02em] mb-3 transition-colors duration-500 ${
+                      className={`font-mono text-[clamp(19px,2.1vw,24px)] font-bold leading-[1.25] tracking-[-0.02em] mb-3 transition-colors duration-700 ease-in-out ${
                         isActive ? 'text-[#e8f2ff]' : 'text-[#3a526b]'
                       }`}
                     >
@@ -208,7 +210,7 @@ export default function ThreatResponseSection({ onOpenDemo }) {
 
                     {/* Description */}
                     <p
-                      className={`font-body text-[14.5px] leading-[1.75] mb-5 transition-colors duration-500 ${
+                      className={`font-body text-[14px] leading-[1.75] mb-6 transition-colors duration-700 ease-in-out ${
                         isActive ? 'text-[#8daac5]' : 'text-[#223344]'
                       }`}
                     >
@@ -218,7 +220,7 @@ export default function ThreatResponseSection({ onOpenDemo }) {
                     {/* Subtle Divider with Horizontal Animated Active Indicator */}
                     <div className="h-[2px] w-full bg-[#00c8ff]/[0.08] relative overflow-hidden rounded-full">
                       <div
-                        className={`h-full bg-[#00c8ff] transition-all duration-500 ${
+                        className={`h-full bg-[#00c8ff] transition-all duration-700 ease-in-out ${
                           isActive
                             ? 'w-full opacity-100 shadow-[0_0_12px_#00c8ff]'
                             : 'w-0 opacity-0'
@@ -231,7 +233,7 @@ export default function ThreatResponseSection({ onOpenDemo }) {
             </div>
 
             {/* Bottom CTA */}
-            <div className="mt-14 pt-8 border-t border-[#00c8ff]/10">
+            <div className="mt-12 pt-6 border-t border-[#00c8ff]/10">
               <button
                 onClick={onOpenDemo}
                 className="cyber-btn-primary group"
