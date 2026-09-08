@@ -35,23 +35,14 @@ export default function ThreatResponseSection({ onOpenDemo }) {
 
   const isManualScrolling = useRef(false);
   const scrollTimeout = useRef(null);
+  const settleTimeout = useRef(null);
 
   useEffect(() => {
     const handleScroll = () => {
-      if (!sectionRef.current || isManualScrolling.current) return;
+      if (!sectionRef.current) return;
 
       const viewportHeight = window.innerHeight;
-      const focalPoint = viewportHeight * 0.48;
-
-      // If last item is scrolled into view, activate the final containment step
-      const lastItem = itemRefs.current[itemRefs.current.length - 1];
-      if (lastItem) {
-        const lastRect = lastItem.getBoundingClientRect();
-        if (lastRect.top <= viewportHeight * 0.52) {
-          setActiveStep(itemRefs.current.length - 1);
-          return;
-        }
-      }
+      const focalPoint = viewportHeight * 0.42;
 
       let closestIndex = 0;
       let minDistance = Infinity;
@@ -68,7 +59,36 @@ export default function ThreatResponseSection({ onOpenDemo }) {
         }
       });
 
-      setActiveStep(closestIndex);
+      if (!isManualScrolling.current) {
+        setActiveStep(closestIndex);
+      }
+
+      // Gentle scroll stop assist: when scrolling settles inside section, align cleanly to step
+      if (!isManualScrolling.current) {
+        if (settleTimeout.current) clearTimeout(settleTimeout.current);
+        settleTimeout.current = setTimeout(() => {
+          const sectionRect = sectionRef.current?.getBoundingClientRect();
+          if (!sectionRect) return;
+          // Only settle if section is currently active in viewport
+          if (sectionRect.top < viewportHeight * 0.3 && sectionRect.bottom > viewportHeight * 0.5) {
+            const targetEl = itemRefs.current[closestIndex];
+            if (targetEl) {
+              const rect = targetEl.getBoundingClientRect();
+              const itemCenter = rect.top + rect.height / 2;
+              const diff = itemCenter - focalPoint;
+              // If within 140px of center, gently settle to create a distinct step stop
+              if (Math.abs(diff) > 15 && Math.abs(diff) < 140) {
+                isManualScrolling.current = true;
+                window.scrollBy({ top: diff, behavior: 'smooth' });
+                if (scrollTimeout.current) clearTimeout(scrollTimeout.current);
+                scrollTimeout.current = setTimeout(() => {
+                  isManualScrolling.current = false;
+                }, 400);
+              }
+            }
+          }
+        }, 180);
+      }
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
@@ -77,6 +97,7 @@ export default function ThreatResponseSection({ onOpenDemo }) {
     return () => {
       window.removeEventListener('scroll', handleScroll);
       if (scrollTimeout.current) clearTimeout(scrollTimeout.current);
+      if (settleTimeout.current) clearTimeout(settleTimeout.current);
     };
   }, []);
 
@@ -84,6 +105,7 @@ export default function ThreatResponseSection({ onOpenDemo }) {
     setActiveStep(idx);
     isManualScrolling.current = true;
     if (scrollTimeout.current) clearTimeout(scrollTimeout.current);
+    if (settleTimeout.current) clearTimeout(settleTimeout.current);
     scrollTimeout.current = setTimeout(() => {
       isManualScrolling.current = false;
     }, 900);
@@ -91,7 +113,7 @@ export default function ThreatResponseSection({ onOpenDemo }) {
     if (itemRefs.current[idx]) {
       const rect = itemRefs.current[idx].getBoundingClientRect();
       const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-      const targetY = scrollTop + rect.top + rect.height / 2 - window.innerHeight * 0.48;
+      const targetY = scrollTop + rect.top - window.innerHeight * 0.32;
       window.scrollTo({ top: targetY, behavior: 'smooth' });
     }
   };
@@ -141,8 +163,8 @@ export default function ThreatResponseSection({ onOpenDemo }) {
               </p>
             </div>
 
-            {/* 4 Sequential Scroll Storytelling Items with Distinct Scroll Steps */}
-            <div className="flex flex-col space-y-6 lg:space-y-10">
+            {/* 4 Sequential Scroll Storytelling Items */}
+            <div className="flex flex-col space-y-12 sm:space-y-16 lg:space-y-20">
               {steps.map((step, idx) => {
                 const isActive = activeStep === idx;
 
@@ -151,14 +173,14 @@ export default function ThreatResponseSection({ onOpenDemo }) {
                     key={step.num}
                     ref={(el) => (itemRefs.current[idx] = el)}
                     onClick={() => handleItemClick(idx)}
-                    className={`group cursor-pointer transition-all duration-700 ease-in-out text-left max-w-[500px] min-h-[45vh] lg:min-h-[55vh] flex flex-col justify-center py-6 scroll-mt-[25vh] ${
+                    className={`group cursor-pointer transition-all duration-700 ease-in-out text-left max-w-[500px] min-h-[30vh] sm:min-h-[35vh] flex flex-col justify-center scroll-mt-[25vh] ${
                       isActive
                         ? 'opacity-100 translate-y-0 filter-none'
-                        : 'opacity-25 translate-y-2 blur-[0.3px] hover:opacity-45'
+                        : 'opacity-25 translate-y-3 blur-[0.3px] hover:opacity-45'
                     }`}
                   >
                     {/* Step Number & Category */}
-                    <div className="flex items-center gap-3 mb-3">
+                    <div className="flex items-center gap-3 mb-2.5">
                       <span
                         className={`font-mono text-[13px] font-bold tracking-[0.2em] transition-colors duration-700 ease-in-out ${
                           isActive ? 'text-[#00c8ff]' : 'text-[#2a4060]'
@@ -178,7 +200,7 @@ export default function ThreatResponseSection({ onOpenDemo }) {
 
                     {/* Headline */}
                     <h3
-                      className={`font-display text-[clamp(20px,2.2vw,26px)] font-bold leading-[1.25] tracking-[-0.02em] mb-3.5 transition-colors duration-700 ease-in-out ${
+                      className={`font-mono text-[clamp(19px,2.1vw,24px)] font-bold leading-[1.25] tracking-[-0.02em] mb-3 transition-colors duration-700 ease-in-out ${
                         isActive ? 'text-[#e8f2ff]' : 'text-[#3a526b]'
                       }`}
                     >
@@ -187,7 +209,7 @@ export default function ThreatResponseSection({ onOpenDemo }) {
 
                     {/* Description */}
                     <p
-                      className={`font-body text-[15px] leading-[1.8] mb-6 transition-colors duration-700 ease-in-out ${
+                      className={`font-body text-[14px] leading-[1.75] mb-6 transition-colors duration-700 ease-in-out ${
                         isActive ? 'text-[#8daac5]' : 'text-[#223344]'
                       }`}
                     >
@@ -195,7 +217,7 @@ export default function ThreatResponseSection({ onOpenDemo }) {
                     </p>
 
                     {/* Subtle Divider with Horizontal Animated Active Indicator */}
-                    <div className="h-[1px] w-full bg-[#00c8ff]/[0.08] relative overflow-hidden">
+                    <div className="h-[1px] w-full bg-[#00c8ff]/[0.06] relative overflow-hidden">
                       <div
                         className={`h-full bg-[#00c8ff] transition-all duration-700 ease-in-out ${
                           isActive
