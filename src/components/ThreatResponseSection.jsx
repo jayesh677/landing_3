@@ -162,8 +162,12 @@ export default function ThreatResponseSection({ onOpenDemo }) {
 
       // Scrolling DOWN
       if (deltaY > 0) {
-        if (currentStep < steps.length - 1) {
-          // Inside section and not at the last step: intercept and guide to EXACTLY the next step (currentStep + 1)
+        // If entering the section from above, first settle at Stage 1 (DETECT)
+        if (currentScrollY < (step0Y - 30)) {
+          e.preventDefault();
+          smoothScrollToStep(0);
+        } else if (currentStep < steps.length - 1) {
+          // Inside section: intercept and guide to EXACTLY the next step (currentStep + 1)
           e.preventDefault();
           wheelDeltaAccRef.current += deltaY;
           if (wheelDeltaAccRef.current >= 18 || deltaY >= 18) {
@@ -176,8 +180,12 @@ export default function ThreatResponseSection({ onOpenDemo }) {
       } 
       // Scrolling UP
       else if (deltaY < 0) {
-        if (currentStep > 0) {
-          // Inside section and not at the first step: intercept and guide to EXACTLY the previous step (currentStep - 1)
+        // If entering the section from below, first settle at Stage 4 (CONTAIN)
+        if (currentScrollY > (step3Y + 30)) {
+          e.preventDefault();
+          smoothScrollToStep(steps.length - 1);
+        } else if (currentStep > 0) {
+          // Inside section: intercept and guide to EXACTLY the previous step (currentStep - 1)
           e.preventDefault();
           wheelDeltaAccRef.current += deltaY;
           if (wheelDeltaAccRef.current <= -18 || deltaY <= -18) {
@@ -204,7 +212,7 @@ export default function ThreatResponseSection({ onOpenDemo }) {
       const step0Y = getStepTargetY(0);
       const step3Y = getStepTargetY(steps.length - 1);
       const currentScrollY = window.pageYOffset || document.documentElement.scrollTop;
-      const isInSectionZone = currentScrollY >= (step0Y - 80) && currentScrollY <= (step3Y + 120);
+      const isInSectionZone = currentScrollY >= (step0Y - 100) && currentScrollY <= (step3Y + 120);
 
       if (!isInSectionZone) return;
 
@@ -217,14 +225,26 @@ export default function ThreatResponseSection({ onOpenDemo }) {
       const diffY = touchStartYRef.current - currentTouchY; // Positive = swipe up = scroll down
 
       if (Math.abs(diffY) > 35) {
-        if (diffY > 0 && currentStep < steps.length - 1) {
-          e.preventDefault();
-          touchStartYRef.current = currentTouchY;
-          smoothScrollToStep(currentStep + 1);
-        } else if (diffY < 0 && currentStep > 0) {
-          e.preventDefault();
-          touchStartYRef.current = currentTouchY;
-          smoothScrollToStep(currentStep - 1);
+        if (diffY > 0) {
+          if (currentScrollY < (step0Y - 30)) {
+            e.preventDefault();
+            touchStartYRef.current = currentTouchY;
+            smoothScrollToStep(0);
+          } else if (currentStep < steps.length - 1) {
+            e.preventDefault();
+            touchStartYRef.current = currentTouchY;
+            smoothScrollToStep(currentStep + 1);
+          }
+        } else if (diffY < 0) {
+          if (currentScrollY > (step3Y + 30)) {
+            e.preventDefault();
+            touchStartYRef.current = currentTouchY;
+            smoothScrollToStep(steps.length - 1);
+          } else if (currentStep > 0) {
+            e.preventDefault();
+            touchStartYRef.current = currentTouchY;
+            smoothScrollToStep(currentStep - 1);
+          }
         }
       }
     };
