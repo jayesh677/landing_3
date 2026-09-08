@@ -12,6 +12,7 @@ export default function ThreatResponseSection({ onOpenDemo }) {
   const wheelDeltaAccRef = useRef(0);
   const touchStartYRef = useRef(null);
   const lastWheelTimeRef = useRef(0);
+  const lastSettledTimeRef = useRef(0);
 
   const steps = [
     {
@@ -69,8 +70,8 @@ export default function ThreatResponseSection({ onOpenDemo }) {
     const targetY = getStepTargetY(targetIdx);
     const startY = window.pageYOffset || document.documentElement.scrollTop;
     const distance = targetY - startY;
-    const duration = 450; // 450ms smooth movement
-    const settlingTime = 300; // ~300ms subtle settling period
+    const duration = 440; // 440ms smooth glide
+    const settlingTime = 320; // 320ms settling lock (within 250-400ms range)
     const startTime = performance.now();
 
     const animate = (currentTime) => {
@@ -86,20 +87,14 @@ export default function ThreatResponseSection({ onOpenDemo }) {
         window.scrollTo(0, targetY);
         rafRef.current = null;
         
-        // Settling buffer to absorb high-speed inertial scroll deltas & lingering momentum
-        const checkSettle = () => {
-          const now = performance.now();
-          const timeSinceLastWheel = now - lastWheelTimeRef.current;
-          // If no wheel events in the last 150ms or settling timeout reached
-          if (timeSinceLastWheel >= 150 || (now - (startTime + duration)) >= settlingTime + 250) {
-            isTransitioningRef.current = false;
-            wheelDeltaAccRef.current = 0;
-          } else {
-            cooldownTimerRef.current = setTimeout(checkSettle, 60);
-          }
+        // Settling buffer: hold stage and absorb lingering wheel momentum
+        const unlock = () => {
+          isTransitioningRef.current = false;
+          wheelDeltaAccRef.current = 0;
+          lastSettledTimeRef.current = performance.now();
         };
 
-        cooldownTimerRef.current = setTimeout(checkSettle, settlingTime);
+        cooldownTimerRef.current = setTimeout(unlock, settlingTime);
       }
     };
 
@@ -153,7 +148,7 @@ export default function ThreatResponseSection({ onOpenDemo }) {
         return;
       }
 
-      // If currently animating or settling, absorb excess scroll delta & momentum
+      // If currently animating or in the settling period, absorb all excess scroll delta & momentum
       if (isTransitioningRef.current) {
         e.preventDefault();
         lastWheelTimeRef.current = performance.now();
@@ -168,10 +163,10 @@ export default function ThreatResponseSection({ onOpenDemo }) {
       // Scrolling DOWN
       if (deltaY > 0) {
         if (currentStep < steps.length - 1) {
-          // Inside section and not at the last step: intercept and guide to next step
+          // Inside section and not at the last step: intercept and guide to EXACTLY the next step (currentStep + 1)
           e.preventDefault();
           wheelDeltaAccRef.current += deltaY;
-          if (wheelDeltaAccRef.current >= 15 || deltaY >= 15) {
+          if (wheelDeltaAccRef.current >= 18 || deltaY >= 18) {
             smoothScrollToStep(currentStep + 1);
           }
         } else {
@@ -182,10 +177,10 @@ export default function ThreatResponseSection({ onOpenDemo }) {
       // Scrolling UP
       else if (deltaY < 0) {
         if (currentStep > 0) {
-          // Inside section and not at the first step: intercept and guide to previous step
+          // Inside section and not at the first step: intercept and guide to EXACTLY the previous step (currentStep - 1)
           e.preventDefault();
           wheelDeltaAccRef.current += deltaY;
-          if (wheelDeltaAccRef.current <= -15 || deltaY <= -15) {
+          if (wheelDeltaAccRef.current <= -18 || deltaY <= -18) {
             smoothScrollToStep(currentStep - 1);
           }
         } else {
