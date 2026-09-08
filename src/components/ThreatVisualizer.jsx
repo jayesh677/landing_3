@@ -179,10 +179,10 @@ export default function ThreatVisualizer({ activeStep }) {
               {/* Countermeasure laser lock */}
               <line x1="220" y1="220" x2="275" y2="200" stroke="#00c8ff" strokeWidth="2.5" strokeLinecap="round" />
 
-              <text x="275" y="172" fill="#00c8ff" fontSize="11" textAnchor="middle" fontFamily="Plus Jakarta Sans, Inter, sans-serif" fontWeight="700" letterSpacing="0.08em">
+              <text x="275" y="172" fill="#00c8ff" fontSize="14" textAnchor="middle" fontFamily="sans-serif" fontWeight="700" letterSpacing="0.08em">
                 INTERCEPTION_ACTIVE ←
               </text>
-              <text x="220" y="340" fill="#00c8ff" textAnchor="middle" fontSize="11" fontFamily="Plus Jakarta Sans, Inter, sans-serif" fontWeight="600" letterSpacing="0.12em">
+              <text x="220" y="340" fill="#00c8ff" textAnchor="middle" fontSize="11" fontFamily="sans-serif" fontWeight="600" letterSpacing="0.12em">
                 AUTOMATED_ISOLATION_ENFORCED
               </text>
             </g>

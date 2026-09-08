@@ -112,10 +112,10 @@ export default function ThreatResponseSection({ onOpenDemo }) {
           <div className="lg:col-span-6 lg:sticky lg:top-[20vh] flex flex-col items-center justify-center order-2 lg:order-1">
             <div className="w-full bg-[#040b14]/50 border border-[#00c8ff]/10 rounded-[14px] p-4 lg:p-6 backdrop-blur-sm relative overflow-hidden">
               {/* Direction Indicator Banner */}
-              <div className="flex items-center justify-between font-mono text-[9px] text-[#4a6580] tracking-widest border-b border-[#00c8ff]/10 pb-2.5 mb-2">
-                <span className="text-[#00c8ff]">AUTONOMOUS DEFENSE ENGINE</span>
-                <span className="flex items-center gap-1.5 text-[rgb(242,12,51)]">
-                  <span>←</span> INBOUND VECTOR [RIGHT TO LEFT]
+              <div className="flex items-center justify-between font-sans text-[11px] sm:text-[11.5px] font-semibold tracking-[0.08em] uppercase text-[#4a6580] border-b border-[#00c8ff]/10 pb-3 mb-2.5">
+                <span className="text-[#00c8ff] font-bold tracking-[0.1em]">AUTONOMOUS DEFENSE ENGINE</span>
+                <span className="flex items-center gap-1.5 text-[rgb(242,12,51)] font-bold">
+                  <span className="text-[13px] leading-none">←</span> INBOUND VECTOR [RIGHT TO LEFT]
                 </span>
               </div>
 
