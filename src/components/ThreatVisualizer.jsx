@@ -36,8 +36,8 @@ export default function ThreatVisualizer({ activeStep }) {
               <stop offset="100%" stopColor="#00c8ff" stopOpacity="0" />
             </radialGradient>
             <radialGradient id="threatGlowRight" cx="50%" cy="50%" r="50%">
-              <stop offset="0%" stopColor="#ff3b5c" stopOpacity="0.85" />
-              <stop offset="100%" stopColor="#ff3b5c" stopOpacity="0" />
+              <stop offset="0%" stopColor="rgb(242, 12, 51)" stopOpacity="0.85" />
+              <stop offset="100%" stopColor="rgb(242, 12, 51)" stopOpacity="0" />
             </radialGradient>
             <radialGradient id="containmentGlow" cx="50%" cy="50%" r="50%">
               <stop offset="0%" stopColor="#00e5a0" stopOpacity="0.6" />
@@ -103,13 +103,13 @@ export default function ThreatVisualizer({ activeStep }) {
             <g className="animate-fade-up">
               {/* Threat Origin (Right: x:420, y:120) */}
               <circle cx="420" cy="120" r="18" fill="url(#threatGlowRight)" />
-              <circle cx="420" cy="120" r="8" fill="none" stroke="#ff3b5c" strokeWidth="1.8" className="ring-anim" />
-              <circle cx="420" cy="120" r="4" fill="#ff3b5c" />
+              <circle cx="420" cy="120" r="8" fill="none" stroke="rgb(242, 12, 51)" strokeWidth="1.8" className="ring-anim" />
+              <circle cx="420" cy="120" r="4" fill="rgb(242, 12, 51)" />
 
               {/* Trajectory vector pointing LEFTWARD */}
               <path
                 d="M420 120 Q340 140 280 180"
-                stroke="#ff3b5c"
+                stroke="rgb(242, 12, 51)"
                 strokeWidth="2"
                 fill="none"
                 strokeDasharray="5 3"
@@ -117,10 +117,10 @@ export default function ThreatVisualizer({ activeStep }) {
               />
 
               {/* Directional Inbound Arrowhead moving LEFT */}
-              <polygon points="280,180 292,172 290,185" fill="#ff3b5c" />
+              <polygon points="280,180 292,172 290,185" fill="rgb(242, 12, 51)" />
 
               {/* Tactical Status Tag */}
-              <text x="420" y="95" fill="#ff3b5c" fontSize="9" textAnchor="middle" fontFamily="JetBrains Mono, monospace" fontWeight="bold" letterSpacing="1.5">
+              <text x="420" y="95" fill="rgb(242, 12, 51)" fontSize="9" textAnchor="middle" fontFamily="JetBrains Mono, monospace" fontWeight="bold" letterSpacing="1.5">
                 INBOUND_THREAT [RIGHT]
               </text>
               <text x="220" y="320" fill="#00c8ff" textAnchor="middle" fontSize="9" fontFamily="JetBrains Mono, monospace" letterSpacing="2" fillOpacity="0.7">
@@ -134,12 +134,12 @@ export default function ThreatVisualizer({ activeStep }) {
             <g className="animate-fade-up">
               {/* Threat mid-flight at x:330, y:170 moving LEFT */}
               <circle cx="330" cy="170" r="16" fill="url(#threatGlowRight)" />
-              <circle cx="330" cy="170" r="6" fill="#ff3b5c" />
+              <circle cx="330" cy="170" r="6" fill="rgb(242, 12, 51)" />
 
               {/* Multi-hop attack chain traced from RIGHT to LEFT */}
               <path
                 d="M430 110 L330 170 L220 220"
-                stroke="#ff3b5c"
+                stroke="rgb(242, 12, 51)"
                 strokeWidth="2.2"
                 fill="none"
                 strokeDasharray="6 3"
@@ -147,9 +147,9 @@ export default function ThreatVisualizer({ activeStep }) {
               />
 
               {/* Direction indicator pulse */}
-              <circle cx="330" cy="170" r="22" stroke="#ff3b5c" strokeWidth="1" fill="none" className="ring-anim" />
+              <circle cx="330" cy="170" r="22" stroke="rgb(242, 12, 51)" strokeWidth="1" fill="none" className="ring-anim" />
 
-              <text x="330" y="145" fill="#ff3b5c" fontSize="9" textAnchor="middle" fontFamily="JetBrains Mono, monospace" fontWeight="bold" letterSpacing="1">
+              <text x="330" y="145" fill="rgb(242, 12, 51)" fontSize="9" textAnchor="middle" fontFamily="JetBrains Mono, monospace" fontWeight="bold" letterSpacing="1">
                 ATTACK_PATH_IDENTIFIED ← [TRAVELING_LEFT]
               </text>
               <text x="220" y="320" fill="#00c8ff" textAnchor="middle" fontSize="9" fontFamily="JetBrains Mono, monospace" letterSpacing="2" fillOpacity="0.8">

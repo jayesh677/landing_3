@@ -114,7 +114,7 @@ export default function ThreatResponseSection({ onOpenDemo }) {
               {/* Direction Indicator Banner */}
               <div className="flex items-center justify-between font-mono text-[9px] text-[#4a6580] tracking-widest border-b border-[#00c8ff]/10 pb-2.5 mb-2">
                 <span className="text-[#00c8ff]">AUTONOMOUS DEFENSE ENGINE</span>
-                <span className="flex items-center gap-1.5 text-[#ff3b5c]">
+                <span className="flex items-center gap-1.5 text-[rgb(242,12,51)]">
                   <span>←</span> INBOUND VECTOR [RIGHT TO LEFT]
                 </span>
               </div>
