@@ -11,6 +11,7 @@ export default function ThreatResponseSection({ onOpenDemo }) {
   const rafRef = useRef(null);
   const wheelDeltaAccRef = useRef(0);
   const touchStartYRef = useRef(null);
+  const lastWheelTimeRef = useRef(0);
 
   const steps = [
     {
@@ -46,10 +47,11 @@ export default function ThreatResponseSection({ onOpenDemo }) {
 
   // Calculate target scroll position for a given step
   const getStepTargetY = (idx) => {
-    if (!itemRefs.current[idx]) return 0;
-    const rect = itemRefs.current[idx].getBoundingClientRect();
+    const el = itemRefs.current[idx];
+    if (!el) return 0;
+    const rect = el.getBoundingClientRect();
     const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-    return scrollTop + rect.top - window.innerHeight * 0.38;
+    return Math.round(scrollTop + rect.top - window.innerHeight * 0.38);
   };
 
   // Smooth custom animation to target scroll position with settling
@@ -57,6 +59,7 @@ export default function ThreatResponseSection({ onOpenDemo }) {
     if (targetIdx < 0 || targetIdx >= steps.length) return;
     
     isTransitioningRef.current = true;
+    wheelDeltaAccRef.current = 0;
     setActiveStep(targetIdx);
     activeStepRef.current = targetIdx;
 
@@ -66,7 +69,8 @@ export default function ThreatResponseSection({ onOpenDemo }) {
     const targetY = getStepTargetY(targetIdx);
     const startY = window.pageYOffset || document.documentElement.scrollTop;
     const distance = targetY - startY;
-    const duration = 420; // Silky smooth 420ms settling transition
+    const duration = 450; // 450ms smooth movement
+    const settlingTime = 300; // ~300ms subtle settling period
     const startTime = performance.now();
 
     const animate = (currentTime) => {
@@ -79,12 +83,23 @@ export default function ThreatResponseSection({ onOpenDemo }) {
       if (progress < 1) {
         rafRef.current = requestAnimationFrame(animate);
       } else {
+        window.scrollTo(0, targetY);
         rafRef.current = null;
-        // Brief settling buffer to absorb high-speed inertial scroll deltas
-        cooldownTimerRef.current = setTimeout(() => {
-          isTransitioningRef.current = false;
-          wheelDeltaAccRef.current = 0;
-        }, 120);
+        
+        // Settling buffer to absorb high-speed inertial scroll deltas & lingering momentum
+        const checkSettle = () => {
+          const now = performance.now();
+          const timeSinceLastWheel = now - lastWheelTimeRef.current;
+          // If no wheel events in the last 150ms or settling timeout reached
+          if (timeSinceLastWheel >= 150 || (now - (startTime + duration)) >= settlingTime + 250) {
+            isTransitioningRef.current = false;
+            wheelDeltaAccRef.current = 0;
+          } else {
+            cooldownTimerRef.current = setTimeout(checkSettle, 60);
+          }
+        };
+
+        cooldownTimerRef.current = setTimeout(checkSettle, settlingTime);
       }
     };
 
@@ -120,7 +135,7 @@ export default function ThreatResponseSection({ onOpenDemo }) {
       }
     };
 
-    // 2. Wheel event listener with controlled stage-by-stage settling
+    // 2. Wheel event listener with controlled stage-by-stage settling & momentum absorption
     const handleWheel = (e) => {
       if (!sectionRef.current) return;
 
@@ -130,7 +145,7 @@ export default function ThreatResponseSection({ onOpenDemo }) {
       const currentScrollY = window.pageYOffset || document.documentElement.scrollTop;
 
       // Check if viewport is in the Threat Response section zone
-      const isInSectionZone = currentScrollY >= (step0Y - 80) && currentScrollY <= (step3Y + 120);
+      const isInSectionZone = currentScrollY >= (step0Y - 100) && currentScrollY <= (step3Y + 120);
 
       if (!isInSectionZone) {
         // Outside the section: let normal page scrolling happen
@@ -138,13 +153,17 @@ export default function ThreatResponseSection({ onOpenDemo }) {
         return;
       }
 
-      // If currently animating/settling, absorb excess scroll delta
+      // If currently animating or settling, absorb excess scroll delta & momentum
       if (isTransitioningRef.current) {
         e.preventDefault();
+        lastWheelTimeRef.current = performance.now();
         return;
       }
 
       const deltaY = e.deltaY;
+      if (Math.abs(deltaY) < 6) return;
+
+      lastWheelTimeRef.current = performance.now();
 
       // Scrolling DOWN
       if (deltaY > 0) {
@@ -152,7 +171,7 @@ export default function ThreatResponseSection({ onOpenDemo }) {
           // Inside section and not at the last step: intercept and guide to next step
           e.preventDefault();
           wheelDeltaAccRef.current += deltaY;
-          if (wheelDeltaAccRef.current >= 20 || Math.abs(deltaY) >= 20) {
+          if (wheelDeltaAccRef.current >= 15 || deltaY >= 15) {
             smoothScrollToStep(currentStep + 1);
           }
         } else {
@@ -166,7 +185,7 @@ export default function ThreatResponseSection({ onOpenDemo }) {
           // Inside section and not at the first step: intercept and guide to previous step
           e.preventDefault();
           wheelDeltaAccRef.current += deltaY;
-          if (wheelDeltaAccRef.current <= -20 || Math.abs(deltaY) >= 20) {
+          if (wheelDeltaAccRef.current <= -15 || deltaY <= -15) {
             smoothScrollToStep(currentStep - 1);
           }
         } else {
