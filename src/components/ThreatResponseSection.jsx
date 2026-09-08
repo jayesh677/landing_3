@@ -3,8 +3,14 @@ import ThreatVisualizer from './ThreatVisualizer';
 
 export default function ThreatResponseSection({ onOpenDemo }) {
   const [activeStep, setActiveStep] = useState(0);
+  const activeStepRef = useRef(0);
   const sectionRef = useRef(null);
   const itemRefs = useRef([]);
+  const isTransitioningRef = useRef(false);
+  const cooldownTimerRef = useRef(null);
+  const rafRef = useRef(null);
+  const wheelDeltaAccRef = useRef(0);
+  const touchStartYRef = useRef(null);
 
   const steps = [
     {
@@ -33,13 +39,62 @@ export default function ThreatResponseSection({ onOpenDemo }) {
     },
   ];
 
-  const isManualScrolling = useRef(false);
-  const scrollTimeout = useRef(null);
-  const settleTimeout = useRef(null);
+  // Keep activeStepRef in sync with state
+  useEffect(() => {
+    activeStepRef.current = activeStep;
+  }, [activeStep]);
+
+  // Calculate target scroll position for a given step
+  const getStepTargetY = (idx) => {
+    if (!itemRefs.current[idx]) return 0;
+    const rect = itemRefs.current[idx].getBoundingClientRect();
+    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    return scrollTop + rect.top - window.innerHeight * 0.38;
+  };
+
+  // Smooth custom animation to target scroll position with settling
+  const smoothScrollToStep = (targetIdx) => {
+    if (targetIdx < 0 || targetIdx >= steps.length) return;
+    
+    isTransitioningRef.current = true;
+    setActiveStep(targetIdx);
+    activeStepRef.current = targetIdx;
+
+    if (rafRef.current) cancelAnimationFrame(rafRef.current);
+    if (cooldownTimerRef.current) clearTimeout(cooldownTimerRef.current);
+
+    const targetY = getStepTargetY(targetIdx);
+    const startY = window.pageYOffset || document.documentElement.scrollTop;
+    const distance = targetY - startY;
+    const duration = 420; // Silky smooth 420ms settling transition
+    const startTime = performance.now();
+
+    const animate = (currentTime) => {
+      const elapsed = currentTime - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      // easeOutCubic curve for natural, premium settling
+      const ease = 1 - Math.pow(1 - progress, 3);
+      window.scrollTo(0, startY + distance * ease);
+
+      if (progress < 1) {
+        rafRef.current = requestAnimationFrame(animate);
+      } else {
+        rafRef.current = null;
+        // Brief settling buffer to absorb high-speed inertial scroll deltas
+        cooldownTimerRef.current = setTimeout(() => {
+          isTransitioningRef.current = false;
+          wheelDeltaAccRef.current = 0;
+        }, 120);
+      }
+    };
+
+    rafRef.current = requestAnimationFrame(animate);
+  };
 
   useEffect(() => {
+    // 1. Passive scroll listener for syncing activeStep if user drags scrollbar or uses anchor links
     const handleScroll = () => {
-      if (!sectionRef.current) return;
+      if (isTransitioningRef.current || !sectionRef.current) return;
 
       const viewportHeight = window.innerHeight;
       const focalPoint = viewportHeight * 0.42;
@@ -59,63 +114,132 @@ export default function ThreatResponseSection({ onOpenDemo }) {
         }
       });
 
-      if (!isManualScrolling.current) {
+      if (closestIndex !== activeStepRef.current) {
         setActiveStep(closestIndex);
-      }
-
-      // Gentle scroll stop assist: when scrolling settles inside section, align cleanly to step
-      if (!isManualScrolling.current) {
-        if (settleTimeout.current) clearTimeout(settleTimeout.current);
-        settleTimeout.current = setTimeout(() => {
-          const sectionRect = sectionRef.current?.getBoundingClientRect();
-          if (!sectionRect) return;
-          // Only settle if section is currently active in viewport
-          if (sectionRect.top < viewportHeight * 0.3 && sectionRect.bottom > viewportHeight * 0.5) {
-            const targetEl = itemRefs.current[closestIndex];
-            if (targetEl) {
-              const rect = targetEl.getBoundingClientRect();
-              const itemCenter = rect.top + rect.height / 2;
-              const diff = itemCenter - focalPoint;
-              // If within 140px of center, gently settle to create a distinct step stop
-              if (Math.abs(diff) > 15 && Math.abs(diff) < 140) {
-                isManualScrolling.current = true;
-                window.scrollBy({ top: diff, behavior: 'smooth' });
-                if (scrollTimeout.current) clearTimeout(scrollTimeout.current);
-                scrollTimeout.current = setTimeout(() => {
-                  isManualScrolling.current = false;
-                }, 400);
-              }
-            }
-          }
-        }, 180);
+        activeStepRef.current = closestIndex;
       }
     };
 
+    // 2. Wheel event listener with controlled stage-by-stage settling
+    const handleWheel = (e) => {
+      if (!sectionRef.current) return;
+
+      const currentStep = activeStepRef.current;
+      const step0Y = getStepTargetY(0);
+      const step3Y = getStepTargetY(steps.length - 1);
+      const currentScrollY = window.pageYOffset || document.documentElement.scrollTop;
+
+      // Check if viewport is in the Threat Response section zone
+      const isInSectionZone = currentScrollY >= (step0Y - 80) && currentScrollY <= (step3Y + 120);
+
+      if (!isInSectionZone) {
+        // Outside the section: let normal page scrolling happen
+        wheelDeltaAccRef.current = 0;
+        return;
+      }
+
+      // If currently animating/settling, absorb excess scroll delta
+      if (isTransitioningRef.current) {
+        e.preventDefault();
+        return;
+      }
+
+      const deltaY = e.deltaY;
+
+      // Scrolling DOWN
+      if (deltaY > 0) {
+        if (currentStep < steps.length - 1) {
+          // Inside section and not at the last step: intercept and guide to next step
+          e.preventDefault();
+          wheelDeltaAccRef.current += deltaY;
+          if (wheelDeltaAccRef.current >= 20 || Math.abs(deltaY) >= 20) {
+            smoothScrollToStep(currentStep + 1);
+          }
+        } else {
+          // At the last step (Stage 4): let normal scroll continue down to next section
+          wheelDeltaAccRef.current = 0;
+        }
+      } 
+      // Scrolling UP
+      else if (deltaY < 0) {
+        if (currentStep > 0) {
+          // Inside section and not at the first step: intercept and guide to previous step
+          e.preventDefault();
+          wheelDeltaAccRef.current += deltaY;
+          if (wheelDeltaAccRef.current <= -20 || Math.abs(deltaY) >= 20) {
+            smoothScrollToStep(currentStep - 1);
+          }
+        } else {
+          // At the first step (Stage 1): let normal scroll continue up to previous section
+          wheelDeltaAccRef.current = 0;
+        }
+      }
+    };
+
+    // 3. Touch event listeners for mobile / touch devices
+    const handleTouchStart = (e) => {
+      if (e.touches && e.touches.length > 0) {
+        touchStartYRef.current = e.touches[0].clientY;
+      }
+    };
+
+    const handleTouchMove = (e) => {
+      if (!sectionRef.current || touchStartYRef.current === null) return;
+
+      const currentStep = activeStepRef.current;
+      const step0Y = getStepTargetY(0);
+      const step3Y = getStepTargetY(steps.length - 1);
+      const currentScrollY = window.pageYOffset || document.documentElement.scrollTop;
+      const isInSectionZone = currentScrollY >= (step0Y - 80) && currentScrollY <= (step3Y + 120);
+
+      if (!isInSectionZone) return;
+
+      if (isTransitioningRef.current) {
+        e.preventDefault();
+        return;
+      }
+
+      const currentTouchY = e.touches[0].clientY;
+      const diffY = touchStartYRef.current - currentTouchY; // Positive = swipe up = scroll down
+
+      if (Math.abs(diffY) > 35) {
+        if (diffY > 0 && currentStep < steps.length - 1) {
+          e.preventDefault();
+          touchStartYRef.current = currentTouchY;
+          smoothScrollToStep(currentStep + 1);
+        } else if (diffY < 0 && currentStep > 0) {
+          e.preventDefault();
+          touchStartYRef.current = currentTouchY;
+          smoothScrollToStep(currentStep - 1);
+        }
+      }
+    };
+
+    const handleTouchEnd = () => {
+      touchStartYRef.current = null;
+    };
+
     window.addEventListener('scroll', handleScroll, { passive: true });
+    window.addEventListener('wheel', handleWheel, { passive: false });
+    window.addEventListener('touchstart', handleTouchStart, { passive: true });
+    window.addEventListener('touchmove', handleTouchMove, { passive: false });
+    window.addEventListener('touchend', handleTouchEnd, { passive: true });
+
     handleScroll();
 
     return () => {
       window.removeEventListener('scroll', handleScroll);
-      if (scrollTimeout.current) clearTimeout(scrollTimeout.current);
-      if (settleTimeout.current) clearTimeout(settleTimeout.current);
+      window.removeEventListener('wheel', handleWheel);
+      window.removeEventListener('touchstart', handleTouchStart);
+      window.removeEventListener('touchmove', handleTouchMove);
+      window.removeEventListener('touchend', handleTouchEnd);
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
+      if (cooldownTimerRef.current) clearTimeout(cooldownTimerRef.current);
     };
   }, []);
 
   const handleItemClick = (idx) => {
-    setActiveStep(idx);
-    isManualScrolling.current = true;
-    if (scrollTimeout.current) clearTimeout(scrollTimeout.current);
-    if (settleTimeout.current) clearTimeout(settleTimeout.current);
-    scrollTimeout.current = setTimeout(() => {
-      isManualScrolling.current = false;
-    }, 900);
-
-    if (itemRefs.current[idx]) {
-      const rect = itemRefs.current[idx].getBoundingClientRect();
-      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-      const targetY = scrollTop + rect.top - window.innerHeight * 0.32;
-      window.scrollTo({ top: targetY, behavior: 'smooth' });
-    }
+    smoothScrollToStep(idx);
   };
 
   return (
