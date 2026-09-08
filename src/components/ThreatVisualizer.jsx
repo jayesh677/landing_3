@@ -78,7 +78,7 @@ export default function ThreatVisualizer({ activeStep }) {
             {/* Left Defense Node */}
             <circle cx="100" cy="160" r="5" fill="#00c8ff" className="node-dot" />
             <line x1="100" y1="160" x2="220" y2="220" stroke="#00c8ff" strokeOpacity="0.15" strokeWidth="1" />
-            <text x="75" y="150" fill="#00c8ff" fillOpacity="0.5" fontSize="8" fontFamily="JetBrains Mono, monospace">NODE_01</text>
+            <text x="75" y="150" fill="#00c8ff" fillOpacity="0.5" fontSize="8" fontFamily="Plus Jakarta Sans, Inter, sans-serif" fontWeight="600" letterSpacing="0.05em">NODE_01</text>
 
             {/* Bottom Defense Node */}
             <circle cx="140" cy="320" r="5" fill="#00c8ff" className="node-dot" style={{ animationDelay: '-1s' }} />
@@ -91,7 +91,7 @@ export default function ThreatVisualizer({ activeStep }) {
             {/* Inbound Perimeter Node (Right) */}
             <circle cx="360" cy="270" r="5" fill="#00c8ff" className="node-dot" style={{ animationDelay: '-1.5s' }} />
             <line x1="360" y1="270" x2="220" y2="220" stroke="#00c8ff" strokeOpacity="0.15" strokeWidth="1" />
-            <text x="365" y="285" fill="#00c8ff" fillOpacity="0.5" fontSize="8" fontFamily="JetBrains Mono, monospace">NODE_07</text>
+            <text x="365" y="285" fill="#00c8ff" fillOpacity="0.5" fontSize="8" fontFamily="Plus Jakarta Sans, Inter, sans-serif" fontWeight="600" letterSpacing="0.05em">NODE_07</text>
           </g>
 
           {/* ============================================================ */}
@@ -120,10 +120,10 @@ export default function ThreatVisualizer({ activeStep }) {
               <polygon points="280,180 292,172 290,185" fill="rgb(242, 12, 51)" />
 
               {/* Tactical Status Tag */}
-              <text x="395" y="95" fill="rgb(242, 12, 51)" fontSize="11" textAnchor="middle" fontFamily="JetBrains Mono, monospace" fontWeight="bold" letterSpacing="1">
+              <text x="395" y="95" fill="rgb(242, 12, 51)" fontSize="11" textAnchor="middle" fontFamily="Plus Jakarta Sans, Inter, sans-serif" fontWeight="700" letterSpacing="0.08em">
                 INBOUND_THREAT [RIGHT]
               </text>
-              <text x="220" y="320" fill="#00c8ff" textAnchor="middle" fontSize="11" fontFamily="JetBrains Mono, monospace" letterSpacing="2" fillOpacity="0.7">
+              <text x="220" y="340" fill="#00c8ff" textAnchor="middle" fontSize="11" fontFamily="Plus Jakarta Sans, Inter, sans-serif" fontWeight="600" letterSpacing="0.12em" fillOpacity="0.75">
                 DEFENSE_GRID: SCANNING_EAST_PERIMETER
               </text>
             </g>
@@ -149,10 +149,10 @@ export default function ThreatVisualizer({ activeStep }) {
               {/* Direction indicator pulse */}
               <circle cx="330" cy="170" r="22" stroke="rgb(242, 12, 51)" strokeWidth="1" fill="none" className="ring-anim" />
 
-              <text x="290" y="145" fill="rgb(242, 12, 51)" fontSize="11" textAnchor="middle" fontFamily="JetBrains Mono, monospace" fontWeight="bold" letterSpacing="0.5">
+              <text x="290" y="145" fill="rgb(242, 12, 51)" fontSize="11" textAnchor="middle" fontFamily="Plus Jakarta Sans, Inter, sans-serif" fontWeight="700" letterSpacing="0.05em">
                 ATTACK_PATH_IDENTIFIED ← [TRAVELING_LEFT]
               </text>
-              <text x="220" y="320" fill="#00c8ff" textAnchor="middle" fontSize="11" fontFamily="JetBrains Mono, monospace" letterSpacing="2" fillOpacity="0.8">
+              <text x="220" y="340" fill="#00c8ff" textAnchor="middle" fontSize="11" fontFamily="Plus Jakarta Sans, Inter, sans-serif" fontWeight="600" letterSpacing="0.12em" fillOpacity="0.85">
                 AUTONOMOUS_STORYLINE: MAPPED
               </text>
             </g>
@@ -179,10 +179,10 @@ export default function ThreatVisualizer({ activeStep }) {
               {/* Countermeasure laser lock */}
               <line x1="220" y1="220" x2="275" y2="200" stroke="#00c8ff" strokeWidth="2.5" strokeLinecap="round" />
 
-              <text x="275" y="172" fill="#00c8ff" fontSize="11" textAnchor="middle" fontFamily="JetBrains Mono, monospace" fontWeight="bold" letterSpacing="1">
+              <text x="275" y="172" fill="#00c8ff" fontSize="11" textAnchor="middle" fontFamily="Plus Jakarta Sans, Inter, sans-serif" fontWeight="700" letterSpacing="0.08em">
                 INTERCEPTION_ACTIVE ←
               </text>
-              <text x="220" y="320" fill="#00c8ff" textAnchor="middle" fontSize="11" fontFamily="JetBrains Mono, monospace" letterSpacing="2">
+              <text x="220" y="340" fill="#00c8ff" textAnchor="middle" fontSize="11" fontFamily="Plus Jakarta Sans, Inter, sans-serif" fontWeight="600" letterSpacing="0.12em">
                 AUTOMATED_ISOLATION_ENFORCED
               </text>
             </g>
@@ -223,10 +223,10 @@ export default function ThreatVisualizer({ activeStep }) {
               {/* Neutralized Threat inside quarantine */}
               <circle cx="220" cy="220" r="10" stroke="#00e5a0" strokeWidth="1.5" fill="none" className="ring-anim" />
 
-              <text x="220" y="132" fill="#00e5a0" fontSize="11" textAnchor="middle" fontFamily="JetBrains Mono, monospace" fontWeight="bold" letterSpacing="1.5">
+              <text x="220" y="132" fill="#00e5a0" fontSize="11" textAnchor="middle" fontFamily="Plus Jakarta Sans, Inter, sans-serif" fontWeight="700" letterSpacing="0.1em">
                 THREAT_CONTAINED // ZERO_IMPACT
               </text>
-              <text x="220" y="322" fill="#00e5a0" textAnchor="middle" fontSize="11" fontFamily="JetBrains Mono, monospace" letterSpacing="2">
+              <text x="220" y="340" fill="#00e5a0" textAnchor="middle" fontSize="11" fontFamily="Plus Jakarta Sans, Inter, sans-serif" fontWeight="600" letterSpacing="0.12em">
                 PERIMETER_SECURED // 100% BLOCKED
               </text>
             </g>
