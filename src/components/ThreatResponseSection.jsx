@@ -149,8 +149,8 @@ export default function ThreatResponseSection({ onOpenDemo }) {
           {/* RIGHT SIDE (45% / 6 cols): Header + Vertical Narrative Timeline */}
           <div className="lg:col-span-6 flex flex-col order-1 lg:order-2">
             {/* Section Header */}
-            <div className="mb-8 lg:mb-12">
-              <div className="eyebrow mb-4 flex items-center gap-2">
+            <div className="mb-4 lg:mb-6">
+              <div className="eyebrow mb-2 flex items-center gap-2">
                 <span className="text-[#00c8ff]">—</span> Threat Response
               </div>
               <h2 className="text-[clamp(28px,3.2vw,48px)] font-extrabold leading-[1.05] tracking-[-0.035em] text-[#e8f2ff] font-display">
@@ -158,13 +158,13 @@ export default function ThreatResponseSection({ onOpenDemo }) {
                 <span className="text-[#4a6580] font-light">YOUR DEFENSE HAS TO</span><br />
                 MOVE FASTER.
               </h2>
-              <p className="font-body text-[15px] leading-[1.7] text-[#6a8caa] max-w-[480px] mt-4">
+              <p className="font-body text-[15px] leading-[1.6] text-[#6a8caa] max-w-[480px] mt-2.5">
                 Detect, investigate, and contain attacks with intelligent automated response before attackers can pivot.
               </p>
             </div>
 
-            {/* 4 Sequential Scroll Storytelling Items with Dedicated Pacing & Scroll Dwell */}
-            <div className="flex flex-col space-y-6 pb-20">
+            {/* 4 Sequential Scroll Storytelling Items with Compact Spacing */}
+            <div className="flex flex-col space-y-3 pb-8">
               {steps.map((step, idx) => {
                 const isActive = activeStep === idx;
 
@@ -173,17 +173,17 @@ export default function ThreatResponseSection({ onOpenDemo }) {
                     key={step.num}
                     ref={(el) => (itemRefs.current[idx] = el)}
                     onClick={() => handleItemClick(idx)}
-                    style={{ scrollSnapAlign: 'center', scrollMarginTop: '25vh' }}
-                    className={`group cursor-pointer transition-all duration-700 ease-in-out text-left max-w-[500px] min-h-[68vh] sm:min-h-[74vh] lg:min-h-[78vh] flex flex-col justify-center py-6 ${
+                    style={{ scrollSnapAlign: 'center', scrollMarginTop: '20vh' }}
+                    className={`group cursor-pointer transition-all duration-500 ease-in-out text-left max-w-[500px] min-h-[28vh] sm:min-h-[32vh] lg:min-h-[36vh] flex flex-col justify-center py-2 ${
                       isActive
                         ? 'opacity-100 translate-y-0 filter-none'
-                        : 'opacity-30 translate-y-2 blur-[0.3px] hover:opacity-50'
+                        : 'opacity-30 translate-y-1 blur-[0.3px] hover:opacity-50'
                     }`}
                   >
                     {/* Step Number & Category */}
-                    <div className="flex items-center gap-3 mb-2.5">
+                    <div className="flex items-center gap-2.5 mb-1.5">
                       <span
-                        className={`font-mono text-[13px] font-bold tracking-[0.2em] transition-colors duration-700 ease-in-out ${
+                        className={`font-mono text-[13px] font-bold tracking-[0.2em] transition-colors duration-500 ease-in-out ${
                           isActive ? 'text-[#00c8ff]' : 'text-[#2a4060]'
                         }`}
                       >
@@ -191,7 +191,7 @@ export default function ThreatResponseSection({ onOpenDemo }) {
                       </span>
                       <span className="w-3 h-[1px] bg-[#00c8ff]/20" />
                       <span
-                        className={`font-mono text-[11px] font-bold tracking-[0.2em] uppercase transition-colors duration-700 ease-in-out ${
+                        className={`font-mono text-[11px] font-bold tracking-[0.2em] uppercase transition-colors duration-500 ease-in-out ${
                           isActive ? 'text-[#00c8ff]' : 'text-[#4a6580]'
                         }`}
                       >
@@ -201,7 +201,7 @@ export default function ThreatResponseSection({ onOpenDemo }) {
 
                     {/* Headline */}
                     <h3
-                      className={`font-mono text-[clamp(19px,2.1vw,24px)] font-bold leading-[1.25] tracking-[-0.02em] mb-3 transition-colors duration-700 ease-in-out ${
+                      className={`font-mono text-[clamp(18px,2vw,22px)] font-bold leading-[1.25] tracking-[-0.02em] mb-2 transition-colors duration-500 ease-in-out ${
                         isActive ? 'text-[#e8f2ff]' : 'text-[#3a526b]'
                       }`}
                     >
@@ -210,7 +210,7 @@ export default function ThreatResponseSection({ onOpenDemo }) {
 
                     {/* Description */}
                     <p
-                      className={`font-body text-[14px] leading-[1.75] mb-6 transition-colors duration-700 ease-in-out ${
+                      className={`font-body text-[14px] leading-[1.65] mb-3.5 transition-colors duration-500 ease-in-out ${
                         isActive ? 'text-[#8daac5]' : 'text-[#223344]'
                       }`}
                     >
@@ -220,7 +220,7 @@ export default function ThreatResponseSection({ onOpenDemo }) {
                     {/* Subtle Divider with Horizontal Animated Active Indicator */}
                     <div className="h-[2px] w-full bg-[#00c8ff]/[0.08] relative overflow-hidden rounded-full">
                       <div
-                        className={`h-full bg-[#00c8ff] transition-all duration-700 ease-in-out ${
+                        className={`h-full bg-[#00c8ff] transition-all duration-500 ease-in-out ${
                           isActive
                             ? 'w-full opacity-100 shadow-[0_0_12px_#00c8ff]'
                             : 'w-0 opacity-0'
@@ -233,7 +233,7 @@ export default function ThreatResponseSection({ onOpenDemo }) {
             </div>
 
             {/* Bottom CTA */}
-            <div className="mt-12 pt-6 border-t border-[#00c8ff]/10">
+            <div className="mt-6 pt-5 border-t border-[#00c8ff]/10">
               <button
                 onClick={onOpenDemo}
                 className="cyber-btn-primary group"
