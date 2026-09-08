@@ -120,10 +120,10 @@ export default function ThreatVisualizer({ activeStep }) {
               <polygon points="280,180 292,172 290,185" fill="rgb(242, 12, 51)" />
 
               {/* Tactical Status Tag */}
-              <text x="420" y="95" fill="rgb(242, 12, 51)" fontSize="9" textAnchor="middle" fontFamily="JetBrains Mono, monospace" fontWeight="bold" letterSpacing="1.5">
+              <text x="395" y="95" fill="rgb(242, 12, 51)" fontSize="11" textAnchor="middle" fontFamily="JetBrains Mono, monospace" fontWeight="bold" letterSpacing="1">
                 INBOUND_THREAT [RIGHT]
               </text>
-              <text x="220" y="320" fill="#00c8ff" textAnchor="middle" fontSize="9" fontFamily="JetBrains Mono, monospace" letterSpacing="2" fillOpacity="0.7">
+              <text x="220" y="320" fill="#00c8ff" textAnchor="middle" fontSize="11" fontFamily="JetBrains Mono, monospace" letterSpacing="2" fillOpacity="0.7">
                 DEFENSE_GRID: SCANNING_EAST_PERIMETER
               </text>
             </g>
@@ -149,10 +149,10 @@ export default function ThreatVisualizer({ activeStep }) {
               {/* Direction indicator pulse */}
               <circle cx="330" cy="170" r="22" stroke="rgb(242, 12, 51)" strokeWidth="1" fill="none" className="ring-anim" />
 
-              <text x="330" y="145" fill="rgb(242, 12, 51)" fontSize="9" textAnchor="middle" fontFamily="JetBrains Mono, monospace" fontWeight="bold" letterSpacing="1">
+              <text x="290" y="145" fill="rgb(242, 12, 51)" fontSize="11" textAnchor="middle" fontFamily="JetBrains Mono, monospace" fontWeight="bold" letterSpacing="0.5">
                 ATTACK_PATH_IDENTIFIED ← [TRAVELING_LEFT]
               </text>
-              <text x="220" y="320" fill="#00c8ff" textAnchor="middle" fontSize="9" fontFamily="JetBrains Mono, monospace" letterSpacing="2" fillOpacity="0.8">
+              <text x="220" y="320" fill="#00c8ff" textAnchor="middle" fontSize="11" fontFamily="JetBrains Mono, monospace" letterSpacing="2" fillOpacity="0.8">
                 AUTONOMOUS_STORYLINE: MAPPED
               </text>
             </g>
@@ -179,10 +179,10 @@ export default function ThreatVisualizer({ activeStep }) {
               {/* Countermeasure laser lock */}
               <line x1="220" y1="220" x2="275" y2="200" stroke="#00c8ff" strokeWidth="2.5" strokeLinecap="round" />
 
-              <text x="275" y="175" fill="#00c8ff" fontSize="9" textAnchor="middle" fontFamily="JetBrains Mono, monospace" fontWeight="bold" letterSpacing="1">
+              <text x="275" y="172" fill="#00c8ff" fontSize="11" textAnchor="middle" fontFamily="JetBrains Mono, monospace" fontWeight="bold" letterSpacing="1">
                 INTERCEPTION_ACTIVE ←
               </text>
-              <text x="220" y="320" fill="#00c8ff" textAnchor="middle" fontSize="9" fontFamily="JetBrains Mono, monospace" letterSpacing="2">
+              <text x="220" y="320" fill="#00c8ff" textAnchor="middle" fontSize="11" fontFamily="JetBrains Mono, monospace" letterSpacing="2">
                 AUTOMATED_ISOLATION_ENFORCED
               </text>
             </g>
@@ -223,10 +223,10 @@ export default function ThreatVisualizer({ activeStep }) {
               {/* Neutralized Threat inside quarantine */}
               <circle cx="220" cy="220" r="10" stroke="#00e5a0" strokeWidth="1.5" fill="none" className="ring-anim" />
 
-              <text x="220" y="132" fill="#00e5a0" fontSize="10" textAnchor="middle" fontFamily="JetBrains Mono, monospace" fontWeight="bold" letterSpacing="1.5">
+              <text x="220" y="132" fill="#00e5a0" fontSize="11" textAnchor="middle" fontFamily="JetBrains Mono, monospace" fontWeight="bold" letterSpacing="1.5">
                 THREAT_CONTAINED // ZERO_IMPACT
               </text>
-              <text x="220" y="322" fill="#00e5a0" textAnchor="middle" fontSize="9" fontFamily="JetBrains Mono, monospace" letterSpacing="2">
+              <text x="220" y="322" fill="#00e5a0" textAnchor="middle" fontSize="11" fontFamily="JetBrains Mono, monospace" letterSpacing="2">
                 PERIMETER_SECURED // 100% BLOCKED
               </text>
             </g>
