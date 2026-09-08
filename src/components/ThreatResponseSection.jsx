@@ -3,15 +3,8 @@ import ThreatVisualizer from './ThreatVisualizer';
 
 export default function ThreatResponseSection({ onOpenDemo }) {
   const [activeStep, setActiveStep] = useState(0);
-  const activeStepRef = useRef(0);
   const sectionRef = useRef(null);
   const itemRefs = useRef([]);
-  const isTransitioningRef = useRef(false);
-  const cooldownTimerRef = useRef(null);
-  const rafRef = useRef(null);
-  const wheelDeltaAccRef = useRef(0);
-  const lastWheelEventTimeRef = useRef(0);
-  const touchStartYRef = useRef(null);
 
   const steps = [
     {
@@ -40,75 +33,25 @@ export default function ThreatResponseSection({ onOpenDemo }) {
     },
   ];
 
-  // Keep activeStepRef in sync with state
-  useEffect(() => {
-    activeStepRef.current = activeStep;
-  }, [activeStep]);
-
-  // Calculate target scroll position for a given step
-  const getStepTargetY = (idx) => {
-    if (!itemRefs.current[idx]) return 0;
-    const rect = itemRefs.current[idx].getBoundingClientRect();
-    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-    return scrollTop + rect.top - window.innerHeight * 0.38;
-  };
-
-  // Smooth custom animation to target scroll position with dedicated settling lock
-  const smoothScrollToStep = (targetIdx) => {
-    if (targetIdx < 0 || targetIdx >= steps.length) return;
-    
-    isTransitioningRef.current = true;
-    wheelDeltaAccRef.current = 0;
-    setActiveStep(targetIdx);
-    activeStepRef.current = targetIdx;
-
-    if (rafRef.current) cancelAnimationFrame(rafRef.current);
-    if (cooldownTimerRef.current) clearTimeout(cooldownTimerRef.current);
-
-    const targetY = getStepTargetY(targetIdx);
-    const startY = window.pageYOffset || document.documentElement.scrollTop;
-    const distance = targetY - startY;
-    const duration = 450; // Smooth 450ms transition
-    const settlingDelay = 320; // 320ms settling period between stages
-    const startTime = performance.now();
-
-    const animate = (currentTime) => {
-      const elapsed = currentTime - startTime;
-      const progress = Math.min(elapsed / duration, 1);
-      // easeOutCubic curve for natural settling
-      const ease = 1 - Math.pow(1 - progress, 3);
-      window.scrollTo(0, startY + distance * ease);
-
-      if (progress < 1) {
-        rafRef.current = requestAnimationFrame(animate);
-      } else {
-        rafRef.current = null;
-        // Check for momentum decay before unlocking to prevent inertial scroll bleed
-        const checkMomentumDecayAndUnlock = () => {
-          const timeSinceLastWheel = performance.now() - lastWheelEventTimeRef.current;
-          // If rapid inertial wheel events are still firing, wait for a quiet gap (80ms)
-          if (timeSinceLastWheel < 80) {
-            cooldownTimerRef.current = setTimeout(checkMomentumDecayAndUnlock, 50);
-          } else {
-            isTransitioningRef.current = false;
-            wheelDeltaAccRef.current = 0;
-          }
-        };
-
-        cooldownTimerRef.current = setTimeout(checkMomentumDecayAndUnlock, settlingDelay);
-      }
-    };
-
-    rafRef.current = requestAnimationFrame(animate);
-  };
+  const isManualScrolling = useRef(false);
+  const scrollTimeout = useRef(null);
 
   useEffect(() => {
-    // 1. Passive scroll listener for syncing activeStep if user drags scrollbar or uses anchor links
     const handleScroll = () => {
-      if (isTransitioningRef.current || !sectionRef.current) return;
+      if (!sectionRef.current || isManualScrolling.current) return;
 
       const viewportHeight = window.innerHeight;
-      const focalPoint = viewportHeight * 0.42;
+      const focalPoint = viewportHeight * 0.45;
+
+      // If last item is scrolled into view, activate the final containment step
+      const lastItem = itemRefs.current[itemRefs.current.length - 1];
+      if (lastItem) {
+        const lastRect = lastItem.getBoundingClientRect();
+        if (lastRect.top <= viewportHeight * 0.65) {
+          setActiveStep(itemRefs.current.length - 1);
+          return;
+        }
+      }
 
       let closestIndex = 0;
       let minDistance = Infinity;
@@ -125,136 +68,32 @@ export default function ThreatResponseSection({ onOpenDemo }) {
         }
       });
 
-      if (closestIndex !== activeStepRef.current) {
-        setActiveStep(closestIndex);
-        activeStepRef.current = closestIndex;
-      }
-    };
-
-    // 2. Wheel event listener with controlled stage-by-stage settling and momentum absorption
-    const handleWheel = (e) => {
-      if (!sectionRef.current) return;
-
-      const currentStep = activeStepRef.current;
-      const step0Y = getStepTargetY(0);
-      const step3Y = getStepTargetY(steps.length - 1);
-      const currentScrollY = window.pageYOffset || document.documentElement.scrollTop;
-
-      // Check if viewport is in the Threat Response section zone
-      const isInSectionZone = currentScrollY >= (step0Y - 80) && currentScrollY <= (step3Y + 120);
-
-      if (!isInSectionZone) {
-        // Outside the section: let normal page scrolling happen
-        wheelDeltaAccRef.current = 0;
-        return;
-      }
-
-      // Record timestamp of incoming wheel packet
-      lastWheelEventTimeRef.current = performance.now();
-
-      // If currently animating or in the settling period, absorb excess scroll momentum
-      if (isTransitioningRef.current) {
-        e.preventDefault();
-        wheelDeltaAccRef.current = 0;
-        return;
-      }
-
-      const deltaY = e.deltaY;
-
-      // Scrolling DOWN
-      if (deltaY > 0) {
-        if (currentStep < steps.length - 1) {
-          // Inside section and not at the last step: intercept and guide to next step
-          e.preventDefault();
-          wheelDeltaAccRef.current += deltaY;
-          if (wheelDeltaAccRef.current >= 30 || Math.abs(deltaY) >= 30) {
-            smoothScrollToStep(currentStep + 1);
-          }
-        } else {
-          // At the last step (Stage 4): let normal scroll continue down to next section
-          wheelDeltaAccRef.current = 0;
-        }
-      } 
-      // Scrolling UP
-      else if (deltaY < 0) {
-        if (currentStep > 0) {
-          // Inside section and not at the first step: intercept and guide to previous step
-          e.preventDefault();
-          wheelDeltaAccRef.current += deltaY;
-          if (wheelDeltaAccRef.current <= -30 || Math.abs(deltaY) >= 30) {
-            smoothScrollToStep(currentStep - 1);
-          }
-        } else {
-          // At the first step (Stage 1): let normal scroll continue up to previous section
-          wheelDeltaAccRef.current = 0;
-        }
-      }
-    };
-
-    // 3. Touch event listeners for mobile / touch devices
-    const handleTouchStart = (e) => {
-      if (e.touches && e.touches.length > 0) {
-        touchStartYRef.current = e.touches[0].clientY;
-      }
-    };
-
-    const handleTouchMove = (e) => {
-      if (!sectionRef.current || touchStartYRef.current === null) return;
-
-      const currentStep = activeStepRef.current;
-      const step0Y = getStepTargetY(0);
-      const step3Y = getStepTargetY(steps.length - 1);
-      const currentScrollY = window.pageYOffset || document.documentElement.scrollTop;
-      const isInSectionZone = currentScrollY >= (step0Y - 80) && currentScrollY <= (step3Y + 120);
-
-      if (!isInSectionZone) return;
-
-      if (isTransitioningRef.current) {
-        e.preventDefault();
-        return;
-      }
-
-      const currentTouchY = e.touches[0].clientY;
-      const diffY = touchStartYRef.current - currentTouchY; // Positive = swipe up = scroll down
-
-      if (Math.abs(diffY) > 40) {
-        if (diffY > 0 && currentStep < steps.length - 1) {
-          e.preventDefault();
-          touchStartYRef.current = currentTouchY;
-          smoothScrollToStep(currentStep + 1);
-        } else if (diffY < 0 && currentStep > 0) {
-          e.preventDefault();
-          touchStartYRef.current = currentTouchY;
-          smoothScrollToStep(currentStep - 1);
-        }
-      }
-    };
-
-    const handleTouchEnd = () => {
-      touchStartYRef.current = null;
+      setActiveStep(closestIndex);
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
-    window.addEventListener('wheel', handleWheel, { passive: false });
-    window.addEventListener('touchstart', handleTouchStart, { passive: true });
-    window.addEventListener('touchmove', handleTouchMove, { passive: false });
-    window.addEventListener('touchend', handleTouchEnd, { passive: true });
-
     handleScroll();
 
     return () => {
       window.removeEventListener('scroll', handleScroll);
-      window.removeEventListener('wheel', handleWheel);
-      window.removeEventListener('touchstart', handleTouchStart);
-      window.removeEventListener('touchmove', handleTouchMove);
-      window.removeEventListener('touchend', handleTouchEnd);
-      if (rafRef.current) cancelAnimationFrame(rafRef.current);
-      if (cooldownTimerRef.current) clearTimeout(cooldownTimerRef.current);
+      if (scrollTimeout.current) clearTimeout(scrollTimeout.current);
     };
   }, []);
 
   const handleItemClick = (idx) => {
-    smoothScrollToStep(idx);
+    setActiveStep(idx);
+    isManualScrolling.current = true;
+    if (scrollTimeout.current) clearTimeout(scrollTimeout.current);
+    scrollTimeout.current = setTimeout(() => {
+      isManualScrolling.current = false;
+    }, 900);
+
+    if (itemRefs.current[idx]) {
+      const rect = itemRefs.current[idx].getBoundingClientRect();
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      const targetY = scrollTop + rect.top - window.innerHeight * 0.4;
+      window.scrollTo({ top: targetY, behavior: 'smooth' });
+    }
   };
 
   return (
@@ -273,10 +112,10 @@ export default function ThreatResponseSection({ onOpenDemo }) {
           <div className="lg:col-span-6 lg:sticky lg:top-[20vh] flex flex-col items-center justify-center order-2 lg:order-1">
             <div className="w-full bg-[#040b14]/50 border border-[#00c8ff]/10 rounded-[14px] p-4 lg:p-6 backdrop-blur-sm relative overflow-hidden">
               {/* Direction Indicator Banner */}
-              <div className="flex items-center justify-between font-sans text-[11px] sm:text-[11.5px] font-semibold tracking-[0.08em] uppercase text-[#4a6580] border-b border-[#00c8ff]/10 pb-3 mb-2.5">
-                <span className="text-[#00c8ff] font-bold tracking-[0.1em]">AUTONOMOUS DEFENSE ENGINE</span>
+              <div className="flex items-center justify-between font-sans text-[11px] font-semibold text-[#4a6580] tracking-[0.08em] uppercase border-b border-[#00c8ff]/10 pb-2.5 mb-2">
+                <span className="text-[#00c8ff]">AUTONOMOUS DEFENSE ENGINE</span>
                 <span className="flex items-center gap-1.5 text-[rgb(242,12,51)] font-bold">
-                  <span className="text-[13px] leading-none">←</span> INBOUND VECTOR [RIGHT TO LEFT]
+                  <span className="text-[12px]">←</span> INBOUND VECTOR [RIGHT TO LEFT]
                 </span>
               </div>
 
@@ -303,7 +142,7 @@ export default function ThreatResponseSection({ onOpenDemo }) {
             </div>
 
             {/* 4 Sequential Scroll Storytelling Items */}
-            <div className="flex flex-col space-y-12 sm:space-y-16 lg:space-y-20">
+            <div className="flex flex-col space-y-10">
               {steps.map((step, idx) => {
                 const isActive = activeStep === idx;
 
@@ -312,10 +151,10 @@ export default function ThreatResponseSection({ onOpenDemo }) {
                     key={step.num}
                     ref={(el) => (itemRefs.current[idx] = el)}
                     onClick={() => handleItemClick(idx)}
-                    className={`group cursor-pointer transition-all duration-700 ease-in-out text-left max-w-[500px] min-h-[30vh] sm:min-h-[35vh] flex flex-col justify-center scroll-mt-[25vh] ${
+                    className={`group cursor-pointer transition-all duration-700 ease-in-out text-left max-w-[500px] ${
                       isActive
                         ? 'opacity-100 translate-y-0 filter-none'
-                        : 'opacity-25 translate-y-3 blur-[0.3px] hover:opacity-45'
+                        : 'opacity-30 translate-y-2 blur-[0.3px] hover:opacity-50'
                     }`}
                   >
                     {/* Step Number & Category */}
