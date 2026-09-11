@@ -14,7 +14,7 @@ export default function MarqueeSection() {
   return (
     <section className="py-[60px] bg-[var(--bg)] border-t border-[#00c8ff]/[0.06] overflow-hidden">
       <div className="max-w-[1280px] mx-auto mb-9 px-8">
-        <p className="section-label text-center text-[#4a6580]">
+        <p className="section-label text-center !text-white">
           Trusted by security-focused organizations worldwide
         </p>
       </div>
@@ -29,9 +29,9 @@ export default function MarqueeSection() {
           {[...partners, ...partners].map((partner, idx) => (
             <div
               key={idx}
-              className="flex items-center gap-2 font-mono text-[12px] font-semibold tracking-[0.15em] text-[#2a4060] hover:text-[#00c8ff] whitespace-nowrap transition-colors cursor-default"
+              className="flex items-center gap-2.5 font-mono text-[12px] font-semibold tracking-[0.15em] text-white/70 hover:text-[#00c8ff] whitespace-nowrap transition-colors duration-200 cursor-default group"
             >
-              <span className="w-1 h-1 rounded-full bg-[#1a3048]" />
+              <span className="w-1 h-1 rounded-full bg-white/30 group-hover:bg-[#00c8ff] transition-colors" />
               {partner}
             </div>
           ))}
