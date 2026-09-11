@@ -112,6 +112,52 @@ body {
   font-weight: 500;
 }
 
+@media (min-width: 1920px) {
+  .cyber-btn-primary {
+    padding: 15px 34px;
+    font-size: 14px;
+    border-radius: 10px;
+    gap: 10px;
+  }
+  .cyber-btn-ghost {
+    padding: 14px 34px;
+    font-size: 14px;
+    border-radius: 10px;
+    gap: 10px;
+  }
+  .eyebrow {
+    font-size: 13px;
+    letter-spacing: 0.22em;
+  }
+  .section-label {
+    font-size: 12px;
+    letter-spacing: 0.32em;
+  }
+}
+
+@media (min-width: 2560px) {
+  .cyber-btn-primary {
+    padding: 18px 44px;
+    font-size: 16px;
+    border-radius: 12px;
+    gap: 12px;
+  }
+  .cyber-btn-ghost {
+    padding: 17px 44px;
+    font-size: 16px;
+    border-radius: 12px;
+    gap: 12px;
+  }
+  .eyebrow {
+    font-size: 15px;
+    letter-spacing: 0.25em;
+  }
+  .section-label {
+    font-size: 14px;
+    letter-spacing: 0.35em;
+  }
+}
+
 /* Animations */
 @keyframes marquee {
   0% { transform: translateX(0); }

@@ -35,15 +35,15 @@ export default function IntelligenceSection({ onSelectArticle }) {
   ];
 
   return (
-    <section id="intelligence" className="bg-[var(--bg)] py-[120px] border-t border-[#00c8ff]/[0.06]">
-      <div className="max-w-[1280px] mx-auto px-8">
+    <section id="intelligence" className="bg-[var(--bg)] py-[120px] 2xl:py-[150px] 3xl:py-[180px] border-t border-[#00c8ff]/[0.06]">
+      <div className="max-w-[1280px] 2xl:max-w-[1400px] 3xl:max-w-[1680px] 4k:max-w-[2000px] mx-auto px-6 sm:px-8 2xl:px-12 3xl:px-16">
         {/* Header */}
-        <div className="flex justify-between items-end mb-[60px] flex-wrap gap-6">
+        <div className="flex justify-between items-end mb-[60px] 2xl:mb-[76px] flex-wrap gap-6">
           <div>
-            <div className="eyebrow mb-5">
+            <div className="eyebrow mb-5 2xl:mb-6">
               <span>—</span> Intelligence
             </div>
-            <h2 className="text-[clamp(24px,2.6vw,42px)] font-extrabold tracking-[-0.035em] text-[#e8f2ff] font-display">
+            <h2 className="text-[clamp(24px,2.6vw,42px)] 2xl:text-[46px] 3xl:text-[54px] 4k:text-[64px] font-extrabold tracking-[-0.035em] text-[#e8f2ff] font-display">
               STAY AHEAD<br />
               OF THE THREAT.
             </h2>
@@ -54,33 +54,33 @@ export default function IntelligenceSection({ onSelectArticle }) {
         </div>
 
         {/* 3 Articles Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-[2px] bg-[#00c8ff]/[0.04] rounded-[14px] overflow-hidden border border-[#00c8ff]/[0.08]">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-[2px] bg-[#00c8ff]/[0.04] rounded-[14px] 2xl:rounded-[18px] overflow-hidden border border-[#00c8ff]/[0.08]">
           {articles.map((item, idx) => (
             <div
               key={idx}
               onClick={() => onSelectArticle && onSelectArticle(item)}
-              className="bg-[var(--bg)] p-9 cursor-pointer hover:bg-[#060f1c] transition-all duration-300 relative overflow-hidden group border-b-2 border-transparent hover:border-[#00c8ff]"
+              className="bg-[var(--bg)] p-9 2xl:p-11 3xl:p-14 cursor-pointer hover:bg-[#060f1c] transition-all duration-300 relative overflow-hidden group border-b-2 border-transparent hover:border-[#00c8ff]"
             >
               <div className="absolute top-0 left-0 right-0 h-[1px] bg-[#00c8ff]/[0.06] group-hover:bg-[#00c8ff]/30 transition-colors" />
 
-              <div className="flex justify-between items-center mb-7">
+              <div className="flex justify-between items-center mb-7 2xl:mb-9">
                 <div
-                  className="font-mono text-[9px] font-semibold tracking-[0.25em] opacity-70 group-hover:opacity-100 transition-opacity"
+                  className="font-mono text-[9px] 2xl:text-[11px] 3xl:text-[12px] font-semibold tracking-[0.25em] opacity-70 group-hover:opacity-100 transition-opacity"
                   style={{ color: item.color }}
                 >
                   {item.tag}
                 </div>
-                <div className="font-body text-[11px] text-[#2a4060]">
+                <div className="font-body text-[11px] 2xl:text-[13px] 3xl:text-[14px] text-[#2a4060]">
                   {item.date}
                 </div>
               </div>
 
               {/* Graphic Waveform Box */}
               <div
-                className="h-[100px] border mb-6 flex items-center justify-center overflow-hidden transition-all duration-300 group-hover:scale-[1.02] rounded-[8px]"
+                className="h-[100px] 2xl:h-[125px] 3xl:h-[150px] border mb-6 2xl:mb-8 flex items-center justify-center overflow-hidden transition-all duration-300 group-hover:scale-[1.02] rounded-[8px] 2xl:rounded-[12px]"
                 style={{ backgroundColor: item.bgColor, borderColor: item.borderColor }}
               >
-                <div className="flex gap-1 items-end h-[60px] px-4 w-full">
+                <div className="flex gap-1 items-end h-[60px] 2xl:h-[75px] 3xl:h-[90px] px-4 2xl:px-6 w-full">
                   {item.bars.map((barHeight, bIdx) => (
                     <div
                       key={bIdx}
@@ -94,15 +94,15 @@ export default function IntelligenceSection({ onSelectArticle }) {
                 </div>
               </div>
 
-              <div className="font-mono text-[9px] tracking-[0.15em] text-[#2a4060] mb-2.5">
+              <div className="font-mono text-[9px] 2xl:text-[11px] 3xl:text-[12px] tracking-[0.15em] text-[#2a4060] mb-2.5 2xl:mb-3">
                 {item.category}
               </div>
 
-              <h4 className="font-mono text-[15px] font-bold text-[#6a8caa] group-hover:text-[#e8f2ff] leading-[1.4] tracking-[-0.01em] mb-5 transition-colors duration-300">
+              <h4 className="font-mono text-[15px] 2xl:text-[18px] 3xl:text-[21px] 4k:text-[24px] font-bold text-[#6a8caa] group-hover:text-[#e8f2ff] leading-[1.4] tracking-[-0.01em] mb-5 2xl:mb-7 transition-colors duration-300">
                 {item.title}
               </h4>
 
-              <div className="flex items-center gap-1.5 font-mono text-[10px] tracking-[0.1em] text-[#2a4060] group-hover:text-[#00c8ff] transition-colors duration-300">
+              <div className="flex items-center gap-1.5 2xl:gap-2 font-mono text-[10px] 2xl:text-[12px] 3xl:text-[13px] tracking-[0.1em] text-[#2a4060] group-hover:text-[#00c8ff] transition-colors duration-300">
                 <span>READ MORE</span>
                 <svg width="12" height="12" viewBox="0 0 12 12" fill="none" className="transition-transform group-hover:translate-x-1">
                   <path d="M2 6h8M7 3l3 3-3 3" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round" />

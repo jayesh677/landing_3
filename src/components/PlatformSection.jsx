@@ -93,10 +93,10 @@ export default function PlatformSection({ onSelectModule }) {
     <section
       id="platform"
       ref={sectionRef}
-      className="bg-[var(--bg2)] py-28 md:py-36 border-t border-[#00c8ff]/[0.06] relative"
+      className="bg-[var(--bg2)] py-28 md:py-36 2xl:py-44 3xl:py-52 border-t border-[#00c8ff]/[0.06] relative"
     >
-      <div className="max-w-[1280px] mx-auto px-8 relative">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+      <div className="max-w-[1280px] 2xl:max-w-[1400px] 3xl:max-w-[1680px] 4k:max-w-[2000px] mx-auto px-6 sm:px-8 2xl:px-12 3xl:px-16 relative">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 2xl:gap-20 3xl:gap-24 items-start">
           
           {/* ========================================================= */}
           {/* LEFT SIDE: STICKY EDITORIAL ANCHOR (5 Cols)               */}
@@ -104,46 +104,46 @@ export default function PlatformSection({ onSelectModule }) {
           <div className="lg:col-span-5 lg:sticky lg:top-[18vh] flex flex-col justify-between self-start">
             <div>
               {/* Eyebrow */}
-              <div className="eyebrow mb-5 flex items-center gap-2">
+              <div className="eyebrow mb-5 2xl:mb-6 flex items-center gap-2">
                 <span className="text-[#00c8ff]">—</span> The Platform
               </div>
 
               {/* Large Headline */}
-              <h2 className="text-[clamp(30px,3.5vw,52px)] font-extrabold leading-[1.04] tracking-[-0.035em] text-[#e8f2ff] font-display mb-6">
+              <h2 className="text-[clamp(30px,3.5vw,52px)] 2xl:text-[54px] 3xl:text-[64px] 4k:text-[76px] font-extrabold leading-[1.04] tracking-[-0.035em] text-[#e8f2ff] font-display mb-6 2xl:mb-8">
                 ONE PLATFORM.<br />
                 <span className="text-[#00c8ff]">COMPLETE</span><br />
                 VISIBILITY.
               </h2>
 
               {/* Supporting Copy */}
-              <p className="font-body text-[16px] leading-[1.75] text-[#8daac5] max-w-[420px] mb-8">
+              <p className="font-body text-[16px] 2xl:text-[18px] 3xl:text-[21px] leading-[1.75] text-[#8daac5] max-w-[420px] 2xl:max-w-[520px] 3xl:max-w-[640px] mb-8 2xl:mb-10">
                 Protect every layer of your environment from a single intelligent security platform.
               </p>
 
               {/* Editorial Narrative Stepper */}
-              <div className="space-y-3 mb-10 pl-3 border-l border-[#00c8ff]/20 font-mono text-[13px]">
+              <div className="space-y-3 2xl:space-y-4 mb-10 2xl:mb-12 pl-3 2xl:pl-4 border-l border-[#00c8ff]/20 font-mono text-[13px] 2xl:text-[15px] 3xl:text-[17px]">
                 <div
-                  className={`transition-all duration-500 flex items-center gap-2.5 ${
+                  className={`transition-all duration-500 flex items-center gap-2.5 2xl:gap-3.5 ${
                     activeIdx <= 1 ? 'text-[#e8f2ff] font-semibold translate-x-1' : 'text-[#3a526b]'
                   }`}
                 >
-                  <span className={`w-1.5 h-1.5 rounded-full ${activeIdx <= 1 ? 'bg-[#00c8ff] shadow-[0_0_8px_#00c8ff]' : 'bg-[#1a3048]'}`} />
+                  <span className={`w-1.5 h-1.5 2xl:w-2 2xl:h-2 rounded-full ${activeIdx <= 1 ? 'bg-[#00c8ff] shadow-[0_0_8px_#00c8ff]' : 'bg-[#1a3048]'}`} />
                   See every threat.
                 </div>
                 <div
-                  className={`transition-all duration-500 flex items-center gap-2.5 ${
+                  className={`transition-all duration-500 flex items-center gap-2.5 2xl:gap-3.5 ${
                     activeIdx === 2 || activeIdx === 3 ? 'text-[#e8f2ff] font-semibold translate-x-1' : 'text-[#3a526b]'
                   }`}
                 >
-                  <span className={`w-1.5 h-1.5 rounded-full ${activeIdx === 2 || activeIdx === 3 ? 'bg-[#00c8ff] shadow-[0_0_8px_#00c8ff]' : 'bg-[#1a3048]'}`} />
+                  <span className={`w-1.5 h-1.5 2xl:w-2 2xl:h-2 rounded-full ${activeIdx === 2 || activeIdx === 3 ? 'bg-[#00c8ff] shadow-[0_0_8px_#00c8ff]' : 'bg-[#1a3048]'}`} />
                   Understand every signal.
                 </div>
                 <div
-                  className={`transition-all duration-500 flex items-center gap-2.5 ${
+                  className={`transition-all duration-500 flex items-center gap-2.5 2xl:gap-3.5 ${
                     activeIdx === 4 ? 'text-[#e8f2ff] font-semibold translate-x-1' : 'text-[#3a526b]'
                   }`}
                 >
-                  <span className={`w-1.5 h-1.5 rounded-full ${activeIdx === 4 ? 'bg-[#00c8ff] shadow-[0_0_8px_#00c8ff]' : 'bg-[#1a3048]'}`} />
+                  <span className={`w-1.5 h-1.5 2xl:w-2 2xl:h-2 rounded-full ${activeIdx === 4 ? 'bg-[#00c8ff] shadow-[0_0_8px_#00c8ff]' : 'bg-[#1a3048]'}`} />
                   Respond from one unified platform.
                 </div>
               </div>
@@ -161,14 +161,14 @@ export default function PlatformSection({ onSelectModule }) {
             </div>
 
             {/* Quick Interactive Selector Dots on Desktop */}
-            <div className="hidden lg:flex items-center gap-3 mt-16 pt-6 border-t border-[#00c8ff]/10">
-              <span className="font-mono text-[10px] text-[#4a6580] tracking-widest uppercase">Layer:</span>
-              <div className="flex gap-2">
+            <div className="hidden lg:flex items-center gap-3 2xl:gap-4 mt-16 2xl:mt-20 pt-6 2xl:pt-8 border-t border-[#00c8ff]/10">
+              <span className="font-mono text-[10px] 2xl:text-[12px] 3xl:text-[13px] text-[#4a6580] tracking-widest uppercase">Layer:</span>
+              <div className="flex gap-2 2xl:gap-2.5">
                 {capabilities.map((c, i) => (
                   <button
                     key={c.num}
                     onClick={() => scrollToCard(i)}
-                    className={`font-mono text-[11px] px-2.5 py-1 border transition-all duration-300 cursor-pointer rounded-[6px] ${
+                    className={`font-mono text-[11px] 2xl:text-[13px] 3xl:text-[14px] px-2.5 2xl:px-3.5 py-1 2xl:py-1.5 border transition-all duration-300 cursor-pointer rounded-[6px] 2xl:rounded-[8px] ${
                       activeIdx === i
                         ? 'bg-[#00c8ff]/10 border-[#00c8ff] text-[#00c8ff] shadow-[0_0_10px_rgba(0,200,255,0.2)]'
                         : 'border-[#00c8ff]/15 text-[#3a526b] hover:text-[#8daac5] hover:border-[#00c8ff]/40'
@@ -185,7 +185,7 @@ export default function PlatformSection({ onSelectModule }) {
           {/* VERTICAL PROGRESS CONNECTOR (1 Col)                        */}
           {/* ========================================================= */}
           <div className="hidden lg:flex lg:col-span-1 justify-center relative self-stretch">
-            <div className="sticky top-[20vh] h-[340px] flex flex-col items-center justify-between">
+            <div className="sticky top-[20vh] h-[340px] 2xl:h-[400px] flex flex-col items-center justify-between">
               {/* Connecting vertical background line */}
               <div className="absolute top-2 bottom-2 w-[1px] bg-[#00c8ff]/10 z-0" />
               {/* Dynamic progress highlight bar */}
@@ -203,7 +203,7 @@ export default function PlatformSection({ onSelectModule }) {
                   <button
                     key={c.num}
                     onClick={() => scrollToCard(i)}
-                    className={`relative z-10 w-3 h-3 rounded-full transition-all duration-500 cursor-pointer flex items-center justify-center ${
+                    className={`relative z-10 w-3 h-3 2xl:w-4 2xl:h-4 rounded-full transition-all duration-500 cursor-pointer flex items-center justify-center ${
                       isActive
                         ? 'bg-[#00c8ff] scale-125 shadow-[0_0_12px_#00c8ff]'
                         : isPassed
@@ -212,7 +212,7 @@ export default function PlatformSection({ onSelectModule }) {
                     }`}
                     aria-label={`Go to ${c.tag}`}
                   >
-                    {isActive && <span className="w-1 h-1 bg-[#03080f] rounded-full" />}
+                    {isActive && <span className="w-1 h-1 2xl:w-1.5 2xl:h-1.5 bg-[#03080f] rounded-full" />}
                   </button>
                 );
               })}
@@ -222,7 +222,7 @@ export default function PlatformSection({ onSelectModule }) {
           {/* ========================================================= */}
           {/* RIGHT SIDE: VERTICAL SCROLL STORY PANELS (6 Cols)          */}
           {/* ========================================================= */}
-          <div className="lg:col-span-6 flex flex-col space-y-24 md:space-y-32">
+          <div className="lg:col-span-6 flex flex-col space-y-24 md:space-y-32 2xl:space-y-36 3xl:space-y-44">
             {capabilities.map((cap, idx) => {
               const isActive = activeIdx === idx;
 
@@ -231,7 +231,7 @@ export default function PlatformSection({ onSelectModule }) {
                   key={cap.num}
                   ref={(el) => (cardRefs.current[idx] = el)}
                   onClick={() => setActiveIdx(idx)}
-                  className={`bg-[#040b14] border rounded-[14px] p-8 md:p-10 transition-all duration-700 ease-out relative overflow-hidden group cursor-pointer ${
+                  className={`bg-[#040b14] border rounded-[14px] 2xl:rounded-[18px] p-8 md:p-10 2xl:p-12 3xl:p-14 transition-all duration-700 ease-out relative overflow-hidden group cursor-pointer ${
                     isActive
                       ? 'opacity-100 scale-100 border-[#00c8ff]/40 shadow-[0_0_60px_rgba(0,200,255,0.08)]'
                       : 'opacity-35 scale-[0.96] border-[#00c8ff]/[0.08] hover:opacity-60'
@@ -248,18 +248,18 @@ export default function PlatformSection({ onSelectModule }) {
                   />
 
                   {/* Header: Number + Category Tag */}
-                  <div className="flex items-center justify-between mb-6">
-                    <div className="flex items-center gap-3">
+                  <div className="flex items-center justify-between mb-6 2xl:mb-8">
+                    <div className="flex items-center gap-3 2xl:gap-4">
                       <span
-                        className={`font-mono text-[13px] font-extrabold tracking-[0.2em] transition-colors duration-500 ${
+                        className={`font-mono text-[13px] 2xl:text-[15px] 3xl:text-[17px] font-extrabold tracking-[0.2em] transition-colors duration-500 ${
                           isActive ? 'text-[#00c8ff]' : 'text-[#2a4060]'
                         }`}
                       >
                         {cap.num}
                       </span>
-                      <span className="w-4 h-[1px] bg-[#00c8ff]/30" />
+                      <span className="w-4 2xl:w-6 h-[1px] bg-[#00c8ff]/30" />
                       <span
-                        className={`font-mono text-[11px] font-bold tracking-[0.2em] uppercase transition-colors duration-500 ${
+                        className={`font-mono text-[11px] 2xl:text-[13px] 3xl:text-[15px] font-bold tracking-[0.2em] uppercase transition-colors duration-500 ${
                           isActive ? 'text-[#00c8ff]' : 'text-[#4a6580]'
                         }`}
                       >
@@ -267,15 +267,15 @@ export default function PlatformSection({ onSelectModule }) {
                       </span>
                     </div>
 
-                    <div className="flex items-center gap-1.5 font-mono text-[9px] text-[#00c8ff]/60 tracking-wider">
-                      <span className="w-1.5 h-1.5 rounded-full bg-[#00c8ff] animate-pulse-dot" />
+                    <div className="flex items-center gap-1.5 font-mono text-[9px] 2xl:text-[11px] text-[#00c8ff]/60 tracking-wider">
+                      <span className="w-1.5 h-1.5 2xl:w-2 2xl:h-2 rounded-full bg-[#00c8ff] animate-pulse-dot" />
                       ACTIVE_LAYER
                     </div>
                   </div>
 
                   {/* Headline */}
                   <h3
-                    className={`font-mono text-[clamp(22px,2.4vw,28px)] font-bold leading-[1.2] tracking-[-0.02em] mb-4 transition-colors duration-500 ${
+                    className={`font-mono text-[clamp(22px,2.4vw,28px)] 2xl:text-[30px] 3xl:text-[36px] 4k:text-[42px] font-bold leading-[1.2] tracking-[-0.02em] mb-4 2xl:mb-5 transition-colors duration-500 ${
                       isActive ? 'text-[#e8f2ff]' : 'text-[#4a6580]'
                     }`}
                   >
@@ -284,7 +284,7 @@ export default function PlatformSection({ onSelectModule }) {
 
                   {/* Description */}
                   <p
-                    className={`font-body text-[15px] leading-[1.75] mb-8 transition-colors duration-500 ${
+                    className={`font-body text-[15px] 2xl:text-[17px] 3xl:text-[20px] leading-[1.75] mb-8 2xl:mb-10 transition-colors duration-500 ${
                       isActive ? 'text-[#8daac5]' : 'text-[#3a526b]'
                     }`}
                   >
@@ -292,14 +292,14 @@ export default function PlatformSection({ onSelectModule }) {
                   </p>
 
                   {/* Custom Capability Cybersecurity Visual Component */}
-                  <div className="mb-8 rounded-[10px] bg-[#03080f] border border-[#00c8ff]/15 p-5 relative overflow-hidden">
+                  <div className="mb-8 2xl:mb-10 rounded-[10px] 2xl:rounded-[14px] bg-[#03080f] border border-[#00c8ff]/15 p-5 2xl:p-7 relative overflow-hidden">
                     <CapabilityVisual type={cap.visualType} isActive={isActive} />
                   </div>
 
                   {/* Footer CTA */}
-                  <div className="flex items-center justify-between pt-5 border-t border-[#00c8ff]/10">
+                  <div className="flex items-center justify-between pt-5 2xl:pt-6 border-t border-[#00c8ff]/10">
                     <div
-                      className={`flex items-center gap-2 font-mono text-[11px] font-bold tracking-[0.12em] transition-colors duration-500 ${
+                      className={`flex items-center gap-2 2xl:gap-3 font-mono text-[11px] 2xl:text-[13px] 3xl:text-[15px] font-bold tracking-[0.12em] transition-colors duration-500 ${
                         isActive ? 'text-[#00c8ff]' : 'text-[#2a4060] group-hover:text-[#4a6580]'
                       }`}
                     >
@@ -309,7 +309,7 @@ export default function PlatformSection({ onSelectModule }) {
                       </svg>
                     </div>
 
-                    <span className="font-mono text-[10px] text-[#2a4060] tracking-widest">
+                    <span className="font-mono text-[10px] 2xl:text-[12px] 3xl:text-[13px] text-[#2a4060] tracking-widest">
                       XSAV_SEC_v4.2
                     </span>
                   </div>

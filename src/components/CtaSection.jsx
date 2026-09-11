@@ -2,26 +2,26 @@ import React from 'react';
 
 export default function CtaSection({ onOpenDemo, onOpenContact }) {
   return (
-    <section className="bg-[var(--bg2)] py-[140px] border-t border-[#00c8ff]/[0.06] relative overflow-hidden text-center">
+    <section className="bg-[var(--bg2)] py-[140px] 2xl:py-[180px] 3xl:py-[220px] border-t border-[#00c8ff]/[0.06] relative overflow-hidden text-center">
       {/* Background Atmospheric Auroras */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
         {/* Purple/Indigo Aurora Glow (Top-Left) */}
         <div 
-          className="absolute -top-32 -left-32 w-[550px] h-[550px] rounded-full blur-[140px] opacity-35"
+          className="absolute -top-32 -left-32 w-[550px] 2xl:w-[750px] h-[550px] 2xl:h-[750px] rounded-full blur-[140px] 2xl:blur-[180px] opacity-35"
           style={{
             background: 'radial-gradient(circle, rgba(118, 75, 162, 0.45) 0%, rgba(102, 126, 234, 0.25) 50%, transparent 80%)'
           }}
         />
         {/* Electric Cyan/Blue Aurora Glow (Bottom-Right) */}
         <div 
-          className="absolute -bottom-32 -right-32 w-[600px] h-[600px] rounded-full blur-[150px] opacity-30"
+          className="absolute -bottom-32 -right-32 w-[600px] 2xl:w-[850px] h-[600px] 2xl:h-[850px] rounded-full blur-[150px] 2xl:blur-[200px] opacity-30"
           style={{
             background: 'radial-gradient(circle, rgba(0, 212, 255, 0.4) 0%, rgba(59, 130, 246, 0.2) 50%, transparent 80%)'
           }}
         />
         {/* Central Atmospheric Diffusion */}
         <div 
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[850px] h-[450px] rounded-full blur-[160px] opacity-25"
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[850px] 2xl:w-[1200px] h-[450px] 2xl:h-[650px] rounded-full blur-[160px] 2xl:blur-[220px] opacity-25"
           style={{
             background: 'radial-gradient(ellipse, rgba(102, 126, 234, 0.3) 0%, rgba(0, 212, 255, 0.15) 50%, transparent 80%)'
           }}
@@ -56,22 +56,22 @@ export default function CtaSection({ onOpenDemo, onOpenContact }) {
         </svg>
       </div>
 
-      <div className="max-w-[1280px] mx-auto px-8 relative z-10">
-        <div className="eyebrow mb-6">
+      <div className="max-w-[1280px] 2xl:max-w-[1400px] 3xl:max-w-[1680px] 4k:max-w-[2000px] mx-auto px-6 sm:px-8 2xl:px-12 3xl:px-16 relative z-10">
+        <div className="eyebrow mb-6 2xl:mb-8">
           <span>—</span> Get Started
         </div>
 
-        <h2 className="text-[clamp(34px,4.8vw,68px)] font-extrabold leading-[0.95] tracking-[-0.04em] text-[#e8f2ff] mb-8 font-display">
+        <h2 className="text-[clamp(34px,4.8vw,68px)] 2xl:text-[72px] 3xl:text-[88px] 4k:text-[104px] font-extrabold leading-[0.95] tracking-[-0.04em] text-[#e8f2ff] mb-8 2xl:mb-10 font-display">
           SECURE<br />
           <span className="text-[#00c8ff]">WHAT'S</span><br />
           NEXT.
         </h2>
 
-        <p className="font-body text-[17px] leading-[1.7] text-[#6a8caa] max-w-[480px] mx-auto mb-10">
+        <p className="font-body text-[17px] 2xl:text-[19px] 3xl:text-[23px] 4k:text-[26px] leading-[1.7] text-[#6a8caa] max-w-[480px] 2xl:max-w-[600px] 3xl:max-w-[740px] mx-auto mb-10 2xl:mb-14">
           Deploy XSAV Endpoint Security in minutes. Protect your entire attack surface autonomously with enterprise-grade precision.
         </p>
 
-        <div className="flex flex-wrap gap-4 justify-center items-center">
+        <div className="flex flex-wrap gap-4 2xl:gap-6 justify-center items-center">
           <button
             onClick={onOpenDemo}
             className="cyber-btn-primary group"

@@ -17,7 +17,7 @@ export default function HeroRadar() {
         viewBox="0 0 560 520"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
-        className="w-full max-w-[560px] h-auto drop-shadow-[0_0_50px_rgba(0,200,255,0.05)]"
+        className="w-full max-w-[560px] 2xl:max-w-[640px] 3xl:max-w-[760px] 4k:max-w-[920px] h-auto drop-shadow-[0_0_50px_rgba(0,200,255,0.05)]"
       >
         <defs>
           <radialGradient id="coreGlow" cx="50%" cy="50%" r="50%">

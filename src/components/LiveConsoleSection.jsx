@@ -70,19 +70,19 @@ export default function LiveConsoleSection({ onOpenDemo }) {
     <section
       id="intelligence-layer"
       ref={sectionRef}
-      className="bg-[var(--bg)] py-[120px] lg:py-[140px] border-t border-[#00c8ff]/[0.06] relative overflow-hidden"
+      className="bg-[var(--bg)] py-[120px] lg:py-[140px] 2xl:py-[160px] 3xl:py-[190px] border-t border-[#00c8ff]/[0.06] relative overflow-hidden"
     >
       {/* Ambient background tactical grid & lighting */}
       <div className="absolute inset-0 tactical-grid pointer-events-none opacity-40" />
       <div
-        className="absolute top-1/2 left-[10%] -translate-y-1/2 w-[600px] h-[600px] pointer-events-none rounded-full blur-[140px]"
+        className="absolute top-1/2 left-[10%] -translate-y-1/2 w-[600px] 2xl:w-[800px] h-[600px] 2xl:h-[800px] pointer-events-none rounded-full blur-[140px] 2xl:blur-[180px]"
         style={{
           background: 'radial-gradient(circle, rgba(0, 200, 255, 0.07) 0%, rgba(0, 229, 160, 0.03) 50%, transparent 70%)',
         }}
       />
 
-      <div className="max-w-[1320px] mx-auto px-6 sm:px-8 relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+      <div className="max-w-[1320px] 2xl:max-w-[1480px] 3xl:max-w-[1760px] 4k:max-w-[2100px] mx-auto px-6 sm:px-8 2xl:px-12 3xl:px-16 relative z-10">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 2xl:gap-20 3xl:gap-24 items-center">
           
           {/* ============================================================ */}
           {/* LEFT COLUMN: Uploaded Cybersecurity Executive Dashboard      */}
@@ -98,7 +98,7 @@ export default function LiveConsoleSection({ onOpenDemo }) {
               onMouseMove={handleMouseMove}
               onMouseEnter={handleMouseEnter}
               onMouseLeave={handleMouseLeave}
-              className="relative w-full max-w-[760px] group transition-transform duration-300 ease-out"
+              className="relative w-full max-w-[760px] 2xl:max-w-[880px] 3xl:max-w-[1040px] 4k:max-w-[1240px] group transition-transform duration-300 ease-out"
               style={{
                 perspective: '1200px',
                 transform: isHovered
@@ -108,7 +108,7 @@ export default function LiveConsoleSection({ onOpenDemo }) {
             >
               {/* Soft Ambient Cyan/Emerald Glow Aura */}
               <div
-                className="absolute -inset-1 rounded-[16px] opacity-40 group-hover:opacity-75 transition-opacity duration-700 blur-[20px] pointer-events-none"
+                className="absolute -inset-1 rounded-[16px] 2xl:rounded-[20px] opacity-40 group-hover:opacity-75 transition-opacity duration-700 blur-[20px] pointer-events-none"
                 style={{
                   background:
                     'linear-gradient(135deg, rgba(0, 200, 255, 0.25) 0%, rgba(0, 229, 160, 0.15) 50%, rgba(4, 11, 20, 0) 100%)',
@@ -116,28 +116,28 @@ export default function LiveConsoleSection({ onOpenDemo }) {
               />
 
               {/* Main Premium Showcase Bezel Frame */}
-              <div className="relative bg-[#030812] border border-[#00c8ff]/25 rounded-[14px] overflow-hidden shadow-[0_25px_60px_rgba(0,0,0,0.85),0_0_40px_rgba(0,200,255,0.08)] transition-all duration-500 group-hover:border-[#00c8ff]/45">
+              <div className="relative bg-[#030812] border border-[#00c8ff]/25 rounded-[14px] 2xl:rounded-[18px] overflow-hidden shadow-[0_25px_60px_rgba(0,0,0,0.85),0_0_40px_rgba(0,200,255,0.08)] transition-all duration-500 group-hover:border-[#00c8ff]/45">
                 
                 {/* Dashboard Window Header Bar */}
-                <div className="bg-[#040b14] border-b border-[#00c8ff]/15 px-3.5 sm:px-4 py-2.5 sm:py-3 flex items-center justify-between select-none gap-2">
+                <div className="bg-[#040b14] border-b border-[#00c8ff]/15 px-3.5 sm:px-4 2xl:px-5 py-2.5 sm:py-3 2xl:py-3.5 flex items-center justify-between select-none gap-2">
                   {/* Window Control Dots */}
                   <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
-                    <div className="w-2 sm:w-2.5 h-2 sm:h-2.5 rounded-full bg-[#ff3b5c]/70 hover:opacity-100 transition-opacity" />
-                    <div className="w-2 sm:w-2.5 h-2 sm:h-2.5 rounded-full bg-[#ffd700]/70 hover:opacity-100 transition-opacity" />
-                    <div className="w-2 sm:w-2.5 h-2 sm:h-2.5 rounded-full bg-[#00e5a0]/70 hover:opacity-100 transition-opacity" />
+                    <div className="w-2 sm:w-2.5 2xl:w-3 h-2 sm:h-2.5 2xl:h-3 rounded-full bg-[#ff3b5c]/70 hover:opacity-100 transition-opacity" />
+                    <div className="w-2 sm:w-2.5 2xl:w-3 h-2 sm:h-2.5 2xl:h-3 rounded-full bg-[#ffd700]/70 hover:opacity-100 transition-opacity" />
+                    <div className="w-2 sm:w-2.5 2xl:w-3 h-2 sm:h-2.5 2xl:h-3 rounded-full bg-[#00e5a0]/70 hover:opacity-100 transition-opacity" />
                   </div>
 
                   {/* Window Title */}
-                  <div className="flex items-center gap-1.5 sm:gap-2 font-mono text-[9px] sm:text-[11px] text-[#6a8caa] tracking-[0.1em] sm:tracking-[0.15em] font-medium truncate">
+                  <div className="flex items-center gap-1.5 sm:gap-2 font-mono text-[9px] sm:text-[11px] 2xl:text-[13px] 3xl:text-[14px] text-[#6a8caa] tracking-[0.1em] sm:tracking-[0.15em] font-medium truncate">
                     <span className="text-[#00c8ff] font-bold">XSAV</span>
                     <span className="text-[#2a4060]">/</span>
                     <span className="text-[#d8eaf8] truncate">ENDPOINT SECURITY DASHBOARD</span>
                   </div>
 
                   {/* Live Telemetry Status Pill */}
-                  <div className="flex items-center gap-1.5 bg-[#00e5a0]/10 border border-[#00e5a0]/30 px-2 py-0.5 rounded-[4px] shrink-0">
+                  <div className="flex items-center gap-1.5 bg-[#00e5a0]/10 border border-[#00e5a0]/30 px-2 2xl:px-2.5 py-0.5 2xl:py-1 rounded-[4px] shrink-0">
                     <div className="w-1.5 h-1.5 rounded-full bg-[#00e5a0] animate-pulse-dot" />
-                    <span className="font-mono text-[8px] sm:text-[9px] text-[#00e5a0] tracking-widest font-bold">
+                    <span className="font-mono text-[8px] sm:text-[9px] 2xl:text-[10px] text-[#00e5a0] tracking-widest font-bold">
                       LIVE
                     </span>
                   </div>
@@ -194,7 +194,7 @@ export default function LiveConsoleSection({ onOpenDemo }) {
                 </div>
 
                 {/* Subtle Bottom Technical Data Footer Bar */}
-                <div className="bg-[#02060c] border-t border-[#00c8ff]/10 px-3.5 sm:px-4 py-2 flex items-center justify-between font-mono text-[8px] sm:text-[9px] text-[#4a6580] tracking-wider select-none">
+                <div className="bg-[#02060c] border-t border-[#00c8ff]/10 px-3.5 sm:px-4 2xl:px-5 py-2 2xl:py-2.5 flex items-center justify-between font-mono text-[8px] sm:text-[9px] 2xl:text-[11px] 3xl:text-[12px] text-[#4a6580] tracking-wider select-none">
                   <span className="flex items-center gap-1.5 truncate">
                     <span className="text-[#00c8ff]">FEED:</span> TELEMETRY_ACTIVE
                   </span>
@@ -217,24 +217,24 @@ export default function LiveConsoleSection({ onOpenDemo }) {
             }`}
           >
             {/* Eyebrow */}
-            <div className="eyebrow mb-4 flex items-center gap-2 text-left">
+            <div className="eyebrow mb-4 2xl:mb-6 flex items-center gap-2 text-left">
               <span className="text-[#00c8ff]">—</span> Platform Intelligence
             </div>
 
             {/* Dominant Headline (Left-aligned typography) */}
-            <h2 className="text-[clamp(28px,3.2vw,48px)] font-extrabold leading-[1.06] tracking-[-0.035em] text-[#e8f2ff] font-display mb-6 text-left">
+            <h2 className="text-[clamp(28px,3.2vw,48px)] 2xl:text-[52px] 3xl:text-[62px] 4k:text-[74px] font-extrabold leading-[1.06] tracking-[-0.035em] text-[#e8f2ff] font-display mb-6 2xl:mb-8 text-left">
               INTELLIGENCE<br />
               <span className="text-[#4a6580] font-light">AT EVERY</span><br />
               LAYER.
             </h2>
 
             {/* Supporting Copy */}
-            <p className="font-body text-[15px] leading-[1.75] text-[#8daac5] mb-8 max-w-[480px] text-left">
+            <p className="font-body text-[15px] 2xl:text-[17px] 3xl:text-[20px] 4k:text-[23px] leading-[1.75] text-[#8daac5] mb-8 2xl:mb-10 max-w-[480px] 2xl:max-w-[580px] 3xl:max-w-[700px] text-left">
               Bring endpoint, identity, cloud, threat detection, and security operations intelligence together in one unified security experience.
             </p>
 
             {/* Key Capability Pillars */}
-            <div className="space-y-5 mb-10 text-left">
+            <div className="space-y-5 2xl:space-y-6 mb-10 2xl:mb-12 text-left">
               {capabilities.map((cap) => {
                 const isItemActive = activeHighlight === cap.id;
 
@@ -243,26 +243,26 @@ export default function LiveConsoleSection({ onOpenDemo }) {
                     key={cap.id}
                     onMouseEnter={() => setActiveHighlight(cap.id)}
                     onMouseLeave={() => setActiveHighlight(null)}
-                    className={`p-4 rounded-[10px] border transition-all duration-300 cursor-pointer text-left ${
+                    className={`p-4 2xl:p-5 3xl:p-6 rounded-[10px] 2xl:rounded-[12px] border transition-all duration-300 cursor-pointer text-left ${
                       isItemActive
                         ? 'bg-[#061220] border-[#00c8ff]/40 shadow-[0_0_20px_rgba(0,200,255,0.08)]'
                         : 'bg-[#040b14]/60 border-[#00c8ff]/10 hover:border-[#00c8ff]/25'
                     }`}
                   >
-                    <div className="flex items-center justify-between mb-1.5 text-left">
-                      <div className="flex items-center gap-2.5">
-                        <span className="font-mono text-[11px] font-bold text-[#00c8ff]">
+                    <div className="flex items-center justify-between mb-1.5 2xl:mb-2 text-left">
+                      <div className="flex items-center gap-2.5 2xl:gap-3">
+                        <span className="font-mono text-[11px] 2xl:text-[13px] 3xl:text-[15px] font-bold text-[#00c8ff]">
                           {cap.num}
                         </span>
-                        <h4 className="font-mono text-[13px] font-bold text-[#e8f2ff] tracking-tight">
+                        <h4 className="font-mono text-[13px] 2xl:text-[15px] 3xl:text-[17px] font-bold text-[#e8f2ff] tracking-tight">
                           {cap.title}
                         </h4>
                       </div>
-                      <span className="font-mono text-[9px] text-[#4a6580] uppercase tracking-wider hidden sm:inline">
+                      <span className="font-mono text-[9px] 2xl:text-[11px] 3xl:text-[12px] text-[#4a6580] uppercase tracking-wider hidden sm:inline">
                         {cap.stat}
                       </span>
                     </div>
-                    <p className="font-body text-[13px] leading-[1.6] text-[#6a8caa] text-left">
+                    <p className="font-body text-[13px] 2xl:text-[15px] 3xl:text-[17px] leading-[1.6] text-[#6a8caa] text-left">
                       {cap.desc}
                     </p>
                   </div>
@@ -271,7 +271,7 @@ export default function LiveConsoleSection({ onOpenDemo }) {
             </div>
 
             {/* CTA Button & Live Badge */}
-            <div className="flex items-center gap-4 text-left">
+            <div className="flex items-center gap-4 2xl:gap-6 text-left">
               <button
                 onClick={onOpenDemo}
                 className="cyber-btn-primary group"
@@ -294,8 +294,8 @@ export default function LiveConsoleSection({ onOpenDemo }) {
                 </svg>
               </button>
 
-              <div className="flex items-center gap-2 font-mono text-[11px] text-[#00e5a0] tracking-wider">
-                <span className="w-2 h-2 rounded-full bg-[#00e5a0] animate-pulse-dot" />
+              <div className="flex items-center gap-2 font-mono text-[11px] 2xl:text-[13px] 3xl:text-[14px] text-[#00e5a0] tracking-wider">
+                <span className="w-2 h-2 2xl:w-2.5 2xl:h-2.5 rounded-full bg-[#00e5a0] animate-pulse-dot" />
                 <span>EXECUTIVE READY</span>
               </div>
             </div>

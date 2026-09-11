@@ -93,24 +93,24 @@ export default function HeroSection({ onOpenDemo, onExplorePlatform }) {
         />
       </div>
 
-      <div className="max-w-[1280px] mx-auto px-8 py-[120px] md:py-[80px] grid grid-cols-1 md:grid-cols-2 gap-12 items-center w-full z-[1] relative">
+      <div className="max-w-[1280px] 2xl:max-w-[1400px] 3xl:max-w-[1680px] 4k:max-w-[2000px] mx-auto px-6 sm:px-8 2xl:px-12 3xl:px-16 py-[120px] md:py-[90px] 2xl:py-[110px] 3xl:py-[130px] 4k:py-[160px] grid grid-cols-1 md:grid-cols-2 gap-12 2xl:gap-16 3xl:gap-24 items-center w-full z-[1] relative">
         {/* Left Column: Headlines & CTAs */}
         <div className="opacity-100 transition-all duration-700">
-          <div className="eyebrow mb-6 flex items-center gap-2">
+          <div className="eyebrow mb-6 2xl:mb-7 flex items-center gap-2">
             <span className="text-[#00c8ff]">—</span> AUTONOMOUS CYBERSECURITY
           </div>
 
-          <h1 className="text-[clamp(36px,4.8vw,66px)] font-extrabold leading-[1.04] tracking-[-0.035em] text-[#e8f2ff] mb-7 font-display">
+          <h1 className="text-[clamp(36px,4.8vw,66px)] 2xl:text-[66px] 3xl:text-[78px] 4k:text-[92px] font-extrabold leading-[1.04] tracking-[-0.035em] text-[#e8f2ff] mb-7 2xl:mb-8 font-display">
             STOP THREATS<br />
             <span className="text-[#00c8ff]">BEFORE</span> THEY<br />
             BECOME BREACHES.
           </h1>
 
-          <p className="font-body text-[17px] leading-[1.7] text-[#6a8caa] max-w-[460px] mb-10">
+          <p className="font-body text-[17px] 2xl:text-[19px] 3xl:text-[22px] 4k:text-[25px] leading-[1.7] text-[#6a8caa] max-w-[460px] 2xl:max-w-[560px] 3xl:max-w-[660px] 4k:max-w-[780px] mb-10 2xl:mb-12">
             Protect endpoints, identities, cloud environments, and critical infrastructure with intelligent security built for modern threats.
           </p>
 
-          <div className="flex flex-wrap gap-4 items-center mb-12">
+          <div className="flex flex-wrap gap-4 2xl:gap-5 items-center mb-12 2xl:mb-14">
             <button
               onClick={onOpenDemo}
               className="cyber-btn-primary group"
@@ -130,28 +130,28 @@ export default function HeroSection({ onOpenDemo, onExplorePlatform }) {
           </div>
 
           {/* Stats Row */}
-          <div className="flex gap-8 pt-8 border-t border-[#00c8ff]/10">
+          <div className="flex gap-8 2xl:gap-12 3xl:gap-16 pt-8 2xl:pt-10 border-t border-[#00c8ff]/10">
             <div>
-              <div className="font-mono text-[22px] font-bold text-[#00c8ff] tracking-[-0.02em]">
+              <div className="font-mono text-[22px] 2xl:text-[28px] 3xl:text-[34px] 4k:text-[42px] font-bold text-[#00c8ff] tracking-[-0.02em]">
                 99.9%
               </div>
-              <div className="font-body text-[12px] text-[#4a6580] mt-1">
+              <div className="font-body text-[12px] 2xl:text-[14px] 3xl:text-[16px] 4k:text-[18px] text-[#4a6580] mt-1">
                 Prevention Rate
               </div>
             </div>
             <div>
-              <div className="font-mono text-[22px] font-bold text-[#00c8ff] tracking-[-0.02em]">
+              <div className="font-mono text-[22px] 2xl:text-[28px] 3xl:text-[34px] 4k:text-[42px] font-bold text-[#00c8ff] tracking-[-0.02em]">
                 &lt;1min
               </div>
-              <div className="font-body text-[12px] text-[#4a6580] mt-1">
+              <div className="font-body text-[12px] 2xl:text-[14px] 3xl:text-[16px] 4k:text-[18px] text-[#4a6580] mt-1">
                 Response Time
               </div>
             </div>
             <div>
-              <div className="font-mono text-[22px] font-bold text-[#00c8ff] tracking-[-0.02em]">
+              <div className="font-mono text-[22px] 2xl:text-[28px] 3xl:text-[34px] 4k:text-[42px] font-bold text-[#00c8ff] tracking-[-0.02em]">
                 24/7
               </div>
-              <div className="font-body text-[12px] text-[#4a6580] mt-1">
+              <div className="font-body text-[12px] 2xl:text-[14px] 3xl:text-[16px] 4k:text-[18px] text-[#4a6580] mt-1">
                 Coverage
               </div>
             </div>

@@ -8,28 +8,28 @@ export default function TestimonialSection() {
   ];
 
   return (
-    <section className="bg-[var(--bg2)] py-[120px] border-t border-[#00c8ff]/[0.06]">
-      <div className="max-w-[1280px] mx-auto px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
+    <section className="bg-[var(--bg2)] py-[120px] 2xl:py-[150px] 3xl:py-[180px] border-t border-[#00c8ff]/[0.06]">
+      <div className="max-w-[1280px] 2xl:max-w-[1400px] 3xl:max-w-[1680px] 4k:max-w-[2000px] mx-auto px-6 sm:px-8 2xl:px-12 3xl:px-16">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 2xl:gap-24 3xl:gap-28 items-center">
           {/* Quote Column */}
           <div>
-            <div className="eyebrow mb-8">
+            <div className="eyebrow mb-8 2xl:mb-10">
               <span>—</span> Customer Impact
             </div>
 
-            <blockquote className="font-mono text-[clamp(20px,2.5vw,32px)] font-bold leading-[1.3] text-[#e8f2ff] tracking-[-0.02em] mb-10 border-l-2 border-[#00c8ff] pl-8">
+            <blockquote className="font-mono text-[clamp(20px,2.5vw,32px)] 2xl:text-[34px] 3xl:text-[40px] 4k:text-[48px] font-bold leading-[1.3] text-[#e8f2ff] tracking-[-0.02em] mb-10 2xl:mb-12 border-l-2 border-[#00c8ff] pl-8 2xl:pl-10">
               "XSAV stopped a sophisticated nation-state attack in under 30 seconds — completely autonomously. It was running before our SOC team got the alert."
             </blockquote>
 
-            <div className="flex items-center gap-5">
-              <div className="w-11 h-11 rounded-full bg-[#00c8ff]/10 border border-[#00c8ff]/20 flex items-center justify-center font-mono text-base font-bold text-[#00c8ff]">
+            <div className="flex items-center gap-5 2xl:gap-6">
+              <div className="w-11 h-11 2xl:w-14 2xl:h-14 3xl:w-16 3xl:h-16 rounded-full bg-[#00c8ff]/10 border border-[#00c8ff]/20 flex items-center justify-center font-mono text-base 2xl:text-xl 3xl:text-2xl font-bold text-[#00c8ff]">
                 M
               </div>
               <div>
-                <div className="font-mono text-[13px] font-bold text-[#d8eaf8] tracking-[0.05em]">
+                <div className="font-mono text-[13px] 2xl:text-[15px] 3xl:text-[17px] 4k:text-[19px] font-bold text-[#d8eaf8] tracking-[0.05em]">
                   MARCUS CHEN
                 </div>
-                <div className="font-body text-[12px] text-[#4a6580]">
+                <div className="font-body text-[12px] 2xl:text-[14px] 3xl:text-[16px] text-[#4a6580]">
                   CISO, Meridian Financial Group
                 </div>
               </div>
@@ -37,16 +37,16 @@ export default function TestimonialSection() {
           </div>
 
           {/* Right Metrics Cards */}
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-4 2xl:gap-6">
             {impacts.map((item, idx) => (
               <div
                 key={idx}
-                className="bg-[#03080f] border border-[#00c8ff]/[0.08] hover:border-[#00c8ff]/30 p-6 flex items-center justify-between transition-colors duration-300 rounded-[10px]"
+                className="bg-[#03080f] border border-[#00c8ff]/[0.08] hover:border-[#00c8ff]/30 p-6 2xl:p-8 3xl:p-10 flex items-center justify-between transition-colors duration-300 rounded-[10px] 2xl:rounded-[14px]"
               >
-                <div className="font-mono text-[11px] tracking-[0.15em] text-[#4a6580]">
+                <div className="font-mono text-[11px] 2xl:text-[13px] 3xl:text-[15px] tracking-[0.15em] text-[#4a6580]">
                   {item.label}
                 </div>
-                <div className="font-mono text-2xl font-extrabold text-[#00c8ff]">
+                <div className="font-mono text-2xl 2xl:text-3xl 3xl:text-4xl 4k:text-5xl font-extrabold text-[#00c8ff]">
                   {item.value}
                 </div>
               </div>
